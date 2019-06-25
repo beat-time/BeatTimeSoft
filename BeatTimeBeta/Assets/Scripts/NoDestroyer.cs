@@ -10,12 +10,12 @@ public class NoDestroyer : MonoBehaviour
         if (noDestroyer == null)
         {
             noDestroyer = this;
-            DontDestroyOnLoad(transform.gameObject);
+            DontDestroyOnLoad(noDestroyer);
         }
-        //else if (noDestroyer != this)
-        //{
-        //    Destroy(transform.gameObject);
-        //}
+        /*else if (noDestroyer != this)
+        {
+            Destroy(transform.gameObject);
+        }/*/
         
     }
     // Start is called before the first frame update
