@@ -34,7 +34,7 @@ public class ChangeMyPhoto : MonoBehaviour
     {
         if (CursorRigth.HandGreen == true)
         {
-            SceneManager.LoadScene("MyPhotoP1");
+            SceneManager.LoadScene("MyPhoto");
             //contPlayers.Players = 1;
         }
     }
@@ -43,7 +43,7 @@ public class ChangeMyPhoto : MonoBehaviour
         if (CursorRigth.HandGreen == true)
         {
             //contPlayers.Players = 2;
-            SceneManager.LoadScene("MyPhotoP1");
+            SceneManager.LoadScene("MyPhoto");
         }
     }
 }

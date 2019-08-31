@@ -43,7 +43,7 @@ public class SelectSongChance : MonoBehaviour
     {
         if (CursorRigth.HandGreen == true)
         {
-            SceneManager.LoadScene("MyPhotoP1");
+            SceneManager.LoadScene("MyPhoto");
             //contPlayers.Players = 1;
         }
     }
