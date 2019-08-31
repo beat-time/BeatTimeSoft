@@ -18,6 +18,12 @@ EditorBuildSettings:
     path: Assets/Scenes/MyPhotoP2.unity
     guid: 86191847157a2ce47a66305559726c7f
   - enabled: 1
+    path: Assets/Scenes/MyPhoto.unity
+    guid: 1e098f3d474245244a7240af515fc7ed
+  - enabled: 1
+    path: Assets/Scenes/MyPhoto2.unity
+    guid: d22949f6d4106a74fa40631e8f052d7a
+  - enabled: 1
     path: Assets/Scenes/SelecThemes.unity
     guid: 7a27f610c683b9c41941f896bd6261d6
   - enabled: 1
