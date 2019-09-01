@@ -7,14 +7,13 @@ using UnityEngine.SceneManagement;
 public class SelectSongChance : MonoBehaviour
 {
     public KinectUICursor CursorRigth;
-
     public Button btnok;
     public Button btnBack;
+    PhotoPlayerController photoPlayerController;
     // Start is called before the first frame update
     void Start()
     {
-        
-
+        photoPlayerController = new PhotoPlayerController();
     }
 
     // Update is called once per frame
@@ -35,7 +34,15 @@ public class SelectSongChance : MonoBehaviour
     {
         if (CursorRigth.HandGreen == true)
         {
-            SceneManager.LoadScene("SelecThemes");
+            if (photoPlayerController.ChangeToThemes())
+            {
+                SceneManager.LoadScene("SelecThemes");
+            }
+            else
+            {
+                photoPlayerController.ChangePhotoPlayer();
+                SceneManager.LoadScene("MyPhoto");
+            }
             //contPlayers.Players = 1;
         }
     }

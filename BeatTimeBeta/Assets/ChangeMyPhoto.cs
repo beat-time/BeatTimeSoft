@@ -11,10 +11,11 @@ public class ChangeMyPhoto : MonoBehaviour
     public Button btn1;
     public Button btn2;
 
+    PhotoPlayerController photoPlayerController;
     // Start is called before the first frame update
     void Start()
     {
-        
+        photoPlayerController = new PhotoPlayerController();   
     }
 
     // Update is called once per frame
@@ -34,6 +35,7 @@ public class ChangeMyPhoto : MonoBehaviour
     {
         if (CursorRigth.HandGreen == true)
         {
+            photoPlayerController.IsPlayer1();
             SceneManager.LoadScene("MyPhoto");
             //contPlayers.Players = 1;
         }
@@ -43,6 +45,7 @@ public class ChangeMyPhoto : MonoBehaviour
         if (CursorRigth.HandGreen == true)
         {
             //contPlayers.Players = 2;
+            photoPlayerController.IsPlayer2();
             SceneManager.LoadScene("MyPhoto");
         }
     }

@@ -1551,6 +1551,7 @@ GameObject:
   - component: {fileID: 1801580207}
   - component: {fileID: 1801580208}
   - component: {fileID: 1801580209}
+  - component: {fileID: 1801580210}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -1672,6 +1673,19 @@ MonoBehaviour:
   time: 0
   canvasAlert: {fileID: 11858335}
   txt_number: {fileID: 814431292}
+--- !u!114 &1801580210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1801580202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 829436339e40a714b8ca0512dc53a26c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ChangeToThemes: 0
 --- !u!1 &1891789319
 GameObject:
   m_ObjectHideFlags: 0
