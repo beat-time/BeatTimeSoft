@@ -300,7 +300,7 @@ public class KinectInputData
     // Get Vector3 position from Joint position
     private Vector3 GetVector3FromJoint(Windows.Kinect.Joint joint)
     {
-        return new Vector3(joint.Position.X * 35, joint.Position.Y * 35, joint.Position.Z * 20);
+        return new Vector3(joint.Position.X * 300, joint.Position.Y * 300, joint.Position.Z * 170);
     }
 }
 

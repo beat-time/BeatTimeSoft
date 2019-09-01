@@ -23,13 +23,13 @@ public class ChangeVideo : MonoBehaviour
     float clHeight;
     float clWidth;
 
-    float Rinicio = 0.0f;
-    float Rfin = 0.0f;
+    Vector3 Rinicio;
+    Vector3 Rfin;
     bool RbInicio = false;
     bool RbFin = false;
 
-    float Linicio = 0.0f;
-    float Lfin = 0.0f;
+    Vector3 Linicio;
+    Vector3 Lfin;
     bool LbInicio = false;
     bool LbFin = false;
 
@@ -50,6 +50,9 @@ public class ChangeVideo : MonoBehaviour
     bool newVideo = false;
 
     public RenderTexture renderTexture;
+
+    public float MinWidthChange = 40;
+    public float MaxHeightChange = 100;
     // Start is called before the first frame update
     void Start()
     {
@@ -130,7 +133,7 @@ public class ChangeVideo : MonoBehaviour
             {
                 if (!RbInicio)
                 {
-                    Rinicio = CursorRight.transform.position.x;
+                    Rinicio = CursorRight.transform.position;
                     RbInicio = true;
                 }
             }
@@ -138,14 +141,19 @@ public class ChangeVideo : MonoBehaviour
             {
                 if (RbInicio)
                 {
-                    Rfin = CursorRight.transform.position.x;
-                    if (Rinicio - Rfin > 100)
+                    Rfin = CursorRight.transform.position;
+                    if (Mathf.Abs(Rinicio.y - Rfin.y) <= MaxHeightChange)
                     {
-                        Change_Next();
-                    }
-                    else if(Rfin - Rinicio > 100)
-                    {
-                        Change_Before();
+                        if (Rinicio.x - Rfin.x > MinWidthChange)
+                        {
+                            LbInicio = false;
+                            Change_Next();
+                        }
+                        else if (Rfin.x - Rinicio.x > MinWidthChange)
+                        {
+                            LbInicio = false;
+                            Change_Before();
+                        }
                     }
                     RbInicio = false;
                 }
@@ -154,7 +162,7 @@ public class ChangeVideo : MonoBehaviour
             {
                 if (!LbInicio)
                 {
-                    Linicio = CursorLeft.transform.position.x;
+                    Linicio = CursorLeft.transform.position;
                     LbInicio = true;
                 }
             }
@@ -162,14 +170,19 @@ public class ChangeVideo : MonoBehaviour
             {
                 if (LbInicio)
                 {
-                    Lfin = CursorLeft.transform.position.x;
-                    if (Lfin - Linicio > 100)
+                    Lfin = CursorLeft.transform.position;
+                    if (Mathf.Abs(Linicio.y - Lfin.y) <= MaxHeightChange)
                     {
-                        Change_Before();
-                    }
-                    else if(Linicio - Lfin > 100)
-                    {
-                        Change_Next();
+                        if (Lfin.x - Linicio.x > MinWidthChange)
+                        {
+                            RbInicio = false;
+                            Change_Before();
+                        }
+                        else if (Linicio.x - Lfin.x > MinWidthChange)
+                        {
+                            RbInicio = false;
+                            Change_Next();
+                        }
                     }
                     LbInicio = false;
                 }
