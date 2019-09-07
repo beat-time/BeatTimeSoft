@@ -8,37 +8,28 @@ public class PhotoController : MonoBehaviour
 {
     public BodySourceView bodySourceView;
     float time;
-    float maxTime = 10.0f;
+    float maxTime = 5.0f;
     public RawImage rawImage;
-    bool takePhoto = false;
-
+    public Text txt_time_controller;
     // Start is called before the first frame update
     void Start()
     {
         time = maxTime;
+        txt_time_controller.text = maxTime.ToString("f0");
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (bodySourceView.Active)
+        time -= Time.deltaTime;
+        txt_time_controller.text = time.ToString("f0");
+        if (time <= 0)
         {
-            if (!takePhoto)
-            {
-                time -= Time.deltaTime;
-                if (time <= 0)
-                {
-                    Texture2D photoTexture = rawImage.texture as Texture2D;
-                    photoTexture = Rotation180(photoTexture);
-                    byte[] bytes = photoTexture.EncodeToPNG();
-                    File.WriteAllBytes("Assets\\Resources\\Images\\" + "photo" + ".png", bytes);
-                    SceneManager.LoadScene("MyPhoto2");
-                }
-            }
-        }
-        else
-        {
-            time = maxTime;
+            Texture2D photoTexture = rawImage.texture as Texture2D;
+            photoTexture = Rotation180(photoTexture);
+            byte[] bytes = photoTexture.EncodeToPNG();
+            File.WriteAllBytes("Assets\\Resources\\Images\\" + "photo" + ".png", bytes);
+            SceneManager.LoadScene("MyPhoto2");
         }
     }
     public Texture2D Rotation180(Texture2D texture)
