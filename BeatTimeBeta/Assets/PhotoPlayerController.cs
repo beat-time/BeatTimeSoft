@@ -7,60 +7,61 @@ public class PhotoPlayerController : MonoBehaviour
 {
     public static int NPlayer = 0;
     public Text Txt_Player;
-    public static bool Player1 = false;
+    public static bool turnPlayerOne = false;
+    public static bool turnPlayerTwo = false;
+    
     // Start is called before the first frame update
     void Start()
     {
         if (Txt_Player != null)
         {
-            if (Player1)
+            if (turnPlayerOne)
             {
                 Txt_Player.text = "Player 1";
             }
-            else
+            else if(turnPlayerTwo)
             {
                 Txt_Player.text = "Player 2";
             }
         }
-        else
-        {
-            NPlayer = 0;
-        }
+    }
+    public void ChangeTurn()
+    {
+        turnPlayerTwo = true;
+        turnPlayerOne = false;
     }
 
-    public void ChangePhotoPlayer()
+    public void ButtonOnePlayer()
     {
-        if (Player1)
-        {
-            Player1 = false;
-        }
-        else
-        {
-            Player1 = true;
-        }
-        NPlayer++;
+        NPlayer = 1;
+        turnPlayerOne = true;
     }
-    public void IsPlayer1()
+    public void ButtonTwoPlayer()
     {
-        Player1 = true;
-        NPlayer++;
-    }
-    public void IsPlayer2()
-    {
-        Player1 = false;
-        NPlayer++;
+        NPlayer = 2;
+        turnPlayerOne = true;
     }
     public bool ChangeToThemes()
     {
-        if (NPlayer >= 2)
+        if (NPlayer == 1)
         {
             return true;
         }
-        else
+        else 
         {
-            return false;
+            if (turnPlayerTwo)
+            {
+                turnPlayerTwo = false;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
-
-
+    public bool getTurnPlayerOne()
+    {
+        return turnPlayerOne;
+    }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.IO;
 
 public class ChangeMyPhoto : MonoBehaviour
 {
@@ -15,7 +16,16 @@ public class ChangeMyPhoto : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        photoPlayerController = new PhotoPlayerController();   
+        photoPlayerController = new PhotoPlayerController();
+        string path = "Assets\\Resources\\Images\\";
+        if (File.Exists(path + "photo1.png"))
+        {
+            File.Delete(path + "photo1.png");
+        }
+        else if (File.Exists(path + "photo2.png"))
+        {
+            File.Delete(path + "photo2.png");
+        }
     }
 
     // Update is called once per frame
@@ -35,7 +45,7 @@ public class ChangeMyPhoto : MonoBehaviour
     {
         if (CursorRigth.HandGreen == true)
         {
-            photoPlayerController.IsPlayer1();
+            photoPlayerController.ButtonOnePlayer();
             SceneManager.LoadScene("MyPhoto");
             //contPlayers.Players = 1;
         }
@@ -45,7 +55,7 @@ public class ChangeMyPhoto : MonoBehaviour
         if (CursorRigth.HandGreen == true)
         {
             //contPlayers.Players = 2;
-            photoPlayerController.IsPlayer2();
+            photoPlayerController.ButtonTwoPlayer();
             SceneManager.LoadScene("MyPhoto");
         }
     }

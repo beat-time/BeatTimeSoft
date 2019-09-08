@@ -7,10 +7,21 @@ using UnityEngine.UI;
 public class FaceDetection : MonoBehaviour
 {
     public Image photo;
+    PhotoPlayerController photoPlayerController;
     // Start is called before the first frame update
     void Start()
     {
-        Texture2D spriteTexture = LoadTexture("Assets\\Resources\\Images\\photo.png");
+        photoPlayerController = new PhotoPlayerController();
+        Texture2D spriteTexture = null;
+        string path = "Assets\\Resources\\Images\\";
+        if (photoPlayerController.getTurnPlayerOne())
+        {
+            spriteTexture = LoadTexture(path + "photo1.png");
+        }
+        else
+        {
+            spriteTexture = LoadTexture(path + "photo2.png");
+        }
         Sprite newSprite = Sprite.Create(spriteTexture, new Rect(0, 0, spriteTexture.width, spriteTexture.height), Vector2.zero);
         photo.sprite = newSprite;
     }

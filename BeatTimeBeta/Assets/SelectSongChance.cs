@@ -40,7 +40,7 @@ public class SelectSongChance : MonoBehaviour
             }
             else
             {
-                photoPlayerController.ChangePhotoPlayer();
+                photoPlayerController.ChangeTurn();
                 SceneManager.LoadScene("MyPhoto");
             }
             //contPlayers.Players = 1;

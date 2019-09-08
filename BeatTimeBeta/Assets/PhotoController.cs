@@ -11,11 +11,13 @@ public class PhotoController : MonoBehaviour
     float maxTime = 5.0f;
     public RawImage rawImage;
     public Text txt_time_controller;
+    PhotoPlayerController photoPlayerController;
     // Start is called before the first frame update
     void Start()
     {
         time = maxTime;
         txt_time_controller.text = maxTime.ToString("f0");
+        photoPlayerController = new PhotoPlayerController();
     }
 
     // Update is called once per frame
@@ -28,7 +30,15 @@ public class PhotoController : MonoBehaviour
             Texture2D photoTexture = rawImage.texture as Texture2D;
             photoTexture = Rotation180(photoTexture);
             byte[] bytes = photoTexture.EncodeToPNG();
-            File.WriteAllBytes("Assets\\Resources\\Images\\" + "photo" + ".png", bytes);
+            string path = "Assets\\Resources\\Images\\";
+            if (photoPlayerController.getTurnPlayerOne())
+            {
+                File.WriteAllBytes(path + "photo1" + ".png", bytes);
+            }
+            else
+            {
+                File.WriteAllBytes(path + "photo2" + ".png", bytes);
+            }
             SceneManager.LoadScene("MyPhoto2");
         }
     }
