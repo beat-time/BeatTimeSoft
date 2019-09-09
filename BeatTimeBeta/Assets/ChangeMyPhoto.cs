@@ -22,9 +22,17 @@ public class ChangeMyPhoto : MonoBehaviour
         {
             File.Delete(path + "photo1.png");
         }
-        else if (File.Exists(path + "photo2.png"))
+        if (File.Exists(path + "photo2.png"))
         {
             File.Delete(path + "photo2.png");
+        }
+        if (File.Exists(path + "face1.png"))
+        {
+            File.Delete(path + "face1.png");
+        }
+        if (File.Exists(path + "face2.png"))
+        {
+            File.Delete(path + "face2.png");
         }
     }
 
