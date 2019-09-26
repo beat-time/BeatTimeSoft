@@ -9,8 +9,8 @@ public class BodySourceView : MonoBehaviour
 
     public Material BoneMaterial;
     
-    private Dictionary<ulong, GameObject> _Bodies = new Dictionary<ulong, GameObject>();
-    private BodySourceManager _BodyManager;
+    public Dictionary<ulong, GameObject> _Bodies = new Dictionary<ulong, GameObject>();
+    public BodySourceManager _BodyManager;
     
     private Dictionary<Kinect.JointType, Kinect.JointType> _BoneMap = new Dictionary<Kinect.JointType, Kinect.JointType>()
     {
@@ -162,7 +162,36 @@ public class BodySourceView : MonoBehaviour
             }
         }
     }
-    
+
+    public void HillGameObject(Kinect.Body body, GameObject bodyObject)
+    {
+        for (Kinect.JointType jt = Kinect.JointType.SpineBase; jt <= Kinect.JointType.ThumbRight; jt++)
+        {
+            Kinect.Joint sourceJoint = body.Joints[jt];
+            Kinect.Joint? targetJoint = null;
+
+            if (_BoneMap.ContainsKey(jt))
+            {
+                targetJoint = body.Joints[_BoneMap[jt]];
+            }
+
+            Transform jointObj = bodyObject.transform.Find(jt.ToString());
+            jointObj.localPosition = GetVector3FromJoint(sourceJoint);
+
+            LineRenderer lr = jointObj.GetComponent<LineRenderer>();
+            if (targetJoint.HasValue)
+            {
+                lr.SetPosition(0, jointObj.localPosition);
+                lr.SetPosition(1, GetVector3FromJoint(targetJoint.Value));
+                lr.SetColors(GetColorForState(sourceJoint.TrackingState), GetColorForState(targetJoint.Value.TrackingState));
+            }
+            else
+            {
+                lr.enabled = false;
+            }
+        }
+    }
+
     private static Color GetColorForState(Kinect.TrackingState state)
     {
         switch (state)
