@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Kinect = Windows.Kinect;
 
@@ -16,7 +17,7 @@ public class CompareMovements : MonoBehaviour
     int cont = 0;
     int numberOfMovements = 0;
     float dif1 = 2f;
-    float dif2 = 4f;
+    float dif2 = 3f;
     float dif3 = 5f;
     float xPlayer = 0;
     float yPlayer = 0;
@@ -42,7 +43,7 @@ public class CompareMovements : MonoBehaviour
     string qualification = "";
     // Start is called before the first frame update
     void Start()
-    {
+    {       
         ReadMovements leerMovimientos = new ReadMovements();
         positions = leerMovimientos.LoadData();
         numberOfMovements = positions.Count / 28;
@@ -98,9 +99,24 @@ public class CompareMovements : MonoBehaviour
                             xPlayer = v.x;
                             yPlayer = v.y;
                             zPlayer = v.z;
+                           
                         }
-
-                        if (xPlayer >= xMachine - dif1 && xPlayer <= xMachine + dif1 &&
+                        //float distanceBefore = Vector3.Distance(JointsPlayer[a], JointsMachine[a]);
+                        float distance = Vector3.Distance(new Vector3(xPlayer,yPlayer,zPlayer), JointsMachine[a]);
+                        //float distanceAfter = Vector3.Distance(JointsPlayer[a], JointsMachine[a]);
+                        if (distance <= dif1)
+                        {
+                            points += 10;
+                        }
+                        else if (distance <= dif2)
+                        {
+                            points += 5;
+                        }
+                        else if (distance <= dif3)
+                        {
+                            points += 2;
+                        }
+                        /*if (xPlayer >= xMachine - dif1 && xPlayer <= xMachine + dif1 &&
                             yPlayer >= yMachine - dif1 && yPlayer <= yMachine + dif1 &&
                             zPlayer >= zMachine - dif1 && zPlayer <= zMachine + dif1)
                         {
@@ -117,7 +133,7 @@ public class CompareMovements : MonoBehaviour
                             zPlayer >= zMachine - dif3 && zPlayer <= zMachine + dif3)
                         {
                             points += 2;
-                        }
+                        }*/
                     }
                 }
                 if (points == 250)
@@ -142,6 +158,8 @@ public class CompareMovements : MonoBehaviour
                 if (cont > positions.Count)
                 {
                     txt_qualification.text = "";
+                    //SceneManager.LoadScene("Score");
+                    Initiate.Fade("Score", Color.black, 2.0f);
                     enabled = false;
                     //UnityEditor.EditorApplication.isPlaying = false;
                 }

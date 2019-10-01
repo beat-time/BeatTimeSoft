@@ -1383,6 +1383,7 @@ GameObject:
   - component: {fileID: 1096718332}
   - component: {fileID: 1096718330}
   - component: {fileID: 1096718331}
+  - component: {fileID: 1096718336}
   m_Layer: 0
   m_Name: EventSystem (1)
   m_TagString: Untagged
@@ -1490,6 +1491,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1096718336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1096718329}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64fea58c11384324187bfa496d8dacec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeOutUIImage: {fileID: 0}
+  fadeSpeed: 0.8
 --- !u!1 &1102887092
 GameObject:
   m_ObjectHideFlags: 0
