@@ -50,3 +50,6 @@ TagManager:
   - name: mesa1
     uniqueID: 2477029819
     locked: 0
+  - name: mesa2
+    uniqueID: 4208531639
+    locked: 0
