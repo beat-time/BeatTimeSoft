@@ -30,7 +30,7 @@ public class PhotoController : MonoBehaviour
             Texture2D photoTexture = rawImage.texture as Texture2D;
             photoTexture = Rotation180(photoTexture);
             byte[] bytes = photoTexture.EncodeToPNG();
-            string path = "Assets\\Resources\\Images\\";
+            string path = Application.dataPath + "//Resources//"; //"Assets\\Resources\\Images\\";
             if (photoPlayerController.getTurnPlayerOne())
             {
                 File.WriteAllBytes(path + "photo1" + ".png", bytes);

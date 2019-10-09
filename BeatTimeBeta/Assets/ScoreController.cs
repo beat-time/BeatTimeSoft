@@ -85,7 +85,7 @@ public class ScoreController : MonoBehaviour
     void LoadPhoto()
     {
         Texture2D spriteTexture = null;
-        string path = "Assets\\Resources\\Images\\";
+        string path = Application.dataPath + "//Resources//";
         if (File.Exists(path + "face1.png")){
             spriteTexture = LoadTexture(path + "face1.png");
         }

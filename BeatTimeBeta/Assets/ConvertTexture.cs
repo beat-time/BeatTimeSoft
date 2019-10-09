@@ -10,7 +10,7 @@ public class ConvertTexture : MonoBehaviour
     {
         Texture2D sample = new Texture2D(2, 2); ;
         byte[] fileData;
-        string path = "Assets\\Resources\\Images\\";
+        string path = Application.dataPath + "//Resources//";
         if (isTurnPlayerOne)
         {
             path = path + "photo1.png";
@@ -36,7 +36,7 @@ public class ConvertTexture : MonoBehaviour
 
         //then Save To Disk as PNG
         byte[] bytes = m2Texture.EncodeToPNG();
-        var dirPath = "Assets\\Resources\\Images\\"; // Application.dataPath + "/../SaveImages/";
+        var dirPath = Application.dataPath + "//Resources//"; // Application.dataPath + "/../SaveImages/";
         if (isTurnPlayerOne)
         {
             File.WriteAllBytes(dirPath + "face1" + ".png", bytes);
@@ -53,7 +53,7 @@ public class ConvertTexture : MonoBehaviour
     public Sprite LoadFace(bool isTurnPlayerOne)
     {
         Texture2D spriteTexture = null;
-        string path = "Assets\\Resources\\Images\\";
+        string path = Application.dataPath + "//Resources//"; ;
         if (isTurnPlayerOne)
         {
             spriteTexture = LoadTexture(path + "face1.png");
