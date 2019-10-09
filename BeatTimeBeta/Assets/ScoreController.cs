@@ -11,6 +11,7 @@ public class ScoreController : MonoBehaviour
     public KinectUICursor CursorLeft;
 
     public Image photo;
+    public Text txt_score;
 
     public Button btnRepeatDance;
     public Button btnChooseSong;
@@ -40,6 +41,7 @@ public class ScoreController : MonoBehaviour
     void Start()
     {
         LoadPhoto();
+        LoadScore();
         crHeight = CursorRight.GetComponent<RectTransform>().rect.height;
         crWidth = CursorRight.GetComponent<RectTransform>().rect.width;
         clHeight = CursorLeft.GetComponent<RectTransform>().rect.height;
@@ -69,6 +71,13 @@ public class ScoreController : MonoBehaviour
         Click_RepeatDance();
         Click_ChooseAnotherSong();
         Click_ChangePLayers();
+    }
+
+    void LoadScore()
+    {
+        CompareMovements compareMovements = new CompareMovements();
+        int totalPoints = compareMovements.GetTotalPoints();
+        txt_score.text = "Puntaje: " + totalPoints.ToString();
     }
 
     void UpdatePosition()

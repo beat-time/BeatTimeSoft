@@ -2216,7 +2216,7 @@ GameObject:
   - component: {fileID: 1759398115}
   - component: {fileID: 1759398114}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Txt_Score
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2582,5 +2582,10 @@ PrefabInstance:
       propertyPath: btnChangePlayers
       value: 
       objectReference: {fileID: 174949674}
+    - target: {fileID: 9099837570326127401, guid: 2864a17e1e1862e4eaa02cfd31e8c640,
+        type: 3}
+      propertyPath: txt_score
+      value: 
+      objectReference: {fileID: 1759398114}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2864a17e1e1862e4eaa02cfd31e8c640, type: 3}

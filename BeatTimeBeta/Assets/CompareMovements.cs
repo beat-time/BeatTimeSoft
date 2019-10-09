@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -17,7 +18,7 @@ public class CompareMovements : MonoBehaviour
     int cont = 0;
     int numberOfMovements = 0;
     int movementsPerSecond = 0;
-    float dif1 = 1f;
+    float dif1 = 1.5f;
     float dif2 = 2f;
     float dif3 = 3f;
     float xPlayer = 0;
@@ -33,7 +34,7 @@ public class CompareMovements : MonoBehaviour
     float zMachine = 0;
 
     float numberOfJoints = 25;
-    float points = 0;
+    int points = 0;
     float validPositions = 0;
 
     float timeCompare = 2;
@@ -42,6 +43,10 @@ public class CompareMovements : MonoBehaviour
     public Canvas franky;
     public Text txt_qualification;
     string qualification = "";
+
+    static int totalPoints = 0;
+
+    public Image photo;
     // Start is called before the first frame update
     void Start()
     {
@@ -51,6 +56,8 @@ public class CompareMovements : MonoBehaviour
         cont = numberOfMovements;
         maxTimeCompare = timeCompare;
         movementsPerSecond = positions.Count / 56;
+
+        LoadPhoto();
     }
 
     // Update is called once per frame
@@ -130,7 +137,7 @@ public class CompareMovements : MonoBehaviour
                             {
                                 auxPoints += 5;
                             }
-                            else if (distance <= dif3)
+                            else 
                             {
                                 auxPoints += 2;
                             }
@@ -160,15 +167,15 @@ public class CompareMovements : MonoBehaviour
                         inicio += 2;
                     }
                 }
-                if (points == 250)
+                if (points >= 210 && points <= 250)
                 {
                     qualification = "Excellent!!!";
                 }
-                else if (points >= 200 && points < 250)
+                else if (points >= 190 && points < 210)
                 {
                     qualification = "Good!!!";
                 }
-                else if (points >= 150 && points < 200)
+                else if (points >= 120 && points < 190)
                 {
                     qualification = "Regular";
                 }
@@ -176,6 +183,8 @@ public class CompareMovements : MonoBehaviour
                 {
                     qualification = "Bad";
                 }
+                totalPoints += points;
+
                 txt_qualification.text = qualification;
                 cont += numberOfMovements;
                 points = 0;
@@ -207,5 +216,40 @@ public class CompareMovements : MonoBehaviour
     Vector3 TransformJoint(Vector3 joint, Vector3 jointBase)
     {
         return new Vector3(joint.x - jointBase.x, joint.y - jointBase.y, joint.z - jointBase.z);
+    }
+
+    public int GetTotalPoints()
+    {
+        return totalPoints;
+    }
+
+    void LoadPhoto()
+    {
+        Texture2D spriteTexture = null;
+        string path = Application.dataPath + "//Resources//";
+        if (File.Exists(path + "face1.png"))
+        {
+            spriteTexture = LoadTexture(path + "face1.png");
+        }
+        else
+        {
+            spriteTexture = LoadTexture(path + "noImage.png");
+        }
+        Sprite newSprite = Sprite.Create(spriteTexture, new Rect(0, 0, spriteTexture.width, spriteTexture.height), Vector2.zero);
+        photo.sprite = newSprite;
+    }
+    Texture2D LoadTexture(string FilePath)
+    {
+        Texture2D Tex2D;
+        byte[] FileData;
+
+        if (File.Exists(FilePath))
+        {
+            FileData = File.ReadAllBytes(FilePath);
+            Tex2D = new Texture2D(2, 2);
+            if (Tex2D.LoadImage(FileData))
+                return Tex2D;
+        }
+        return null;
     }
 }

@@ -10,13 +10,14 @@ public class PhotoController : MonoBehaviour
     float time;
     float maxTime = 5.0f;
     public RawImage rawImage;
-    public Text txt_time_controller;
+    public RawImage rawImageSnip;
+    //public Text txt_time_controller;
     PhotoPlayerController photoPlayerController;
     // Start is called before the first frame update
     void Start()
     {
         time = maxTime;
-        txt_time_controller.text = maxTime.ToString("f0");
+        //txt_time_controller.text = maxTime.ToString("f0");
         photoPlayerController = new PhotoPlayerController();
     }
 
@@ -24,10 +25,11 @@ public class PhotoController : MonoBehaviour
     void Update()
     {
         time -= Time.deltaTime;
-        txt_time_controller.text = time.ToString("f0");
+        //txt_time_controller.text = time.ToString("f0");
         if (time <= 0)
         {
             Texture2D photoTexture = rawImage.texture as Texture2D;
+            //photoTexture = SnipTexture(photoTexture, rawImage, rawImageSnip);
             photoTexture = Rotation180(photoTexture);
             byte[] bytes = photoTexture.EncodeToPNG();
             string path = Application.dataPath + "//Resources//"; //"Assets\\Resources\\Images\\";
@@ -58,5 +60,18 @@ public class PhotoController : MonoBehaviour
         snap.SetPixels(pixelsFlipped);
         snap.Apply();
         return snap;
+    }
+
+    public Texture2D SnipTexture(Texture2D photo,RawImage rawImage, RawImage snip)
+    {
+        Color[] c = photo.GetPixels((int)(rawImage.rectTransform.rect.width - snip.rectTransform.rect.width)/2 + (int)rawImageSnip.rectTransform.rect.x,
+            (int)(rawImage.rectTransform.rect.height - snip.rectTransform.rect.height) / 2+ (int)rawImageSnip.rectTransform.rect.y,
+            (int)snip.rectTransform.rect.width, 
+            (int)snip.rectTransform.rect.height);
+        // x=7; y=-15
+        Texture2D m2Texture = new Texture2D((int)snip.rectTransform.rect.width, (int)snip.rectTransform.rect.height);
+        m2Texture.SetPixels(c);
+        m2Texture.Apply();
+        return m2Texture;
     }
 }

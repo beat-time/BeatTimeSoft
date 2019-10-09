@@ -11,10 +11,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SelecPlayers.unity
     guid: 9aef2fd91d7cb44489a56f7488d01672
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/MyPhotoP1.unity
     guid: 6a029e70664415d4c87f877e5385de75
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/MyPhotoP2.unity
     guid: 86191847157a2ce47a66305559726c7f
   - enabled: 1
