@@ -29,7 +29,7 @@ public class PhotoController : MonoBehaviour
         if (time <= 0)
         {
             Texture2D photoTexture = rawImage.texture as Texture2D;
-            //photoTexture = SnipTexture(photoTexture, rawImage, rawImageSnip);
+            photoTexture = SnipTexture(photoTexture, rawImage, rawImageSnip);
             photoTexture = Rotation180(photoTexture);
             byte[] bytes = photoTexture.EncodeToPNG();
             string path = Application.dataPath + "//Resources//"; //"Assets\\Resources\\Images\\";
@@ -64,12 +64,18 @@ public class PhotoController : MonoBehaviour
 
     public Texture2D SnipTexture(Texture2D photo,RawImage rawImage, RawImage snip)
     {
-        Color[] c = photo.GetPixels((int)(rawImage.rectTransform.rect.width - snip.rectTransform.rect.width)/2 + (int)rawImageSnip.rectTransform.rect.x,
-            (int)(rawImage.rectTransform.rect.height - snip.rectTransform.rect.height) / 2+ (int)rawImageSnip.rectTransform.rect.y,
-            (int)snip.rectTransform.rect.width, 
-            (int)snip.rectTransform.rect.height);
-        // x=7; y=-15
-        Texture2D m2Texture = new Texture2D((int)snip.rectTransform.rect.width, (int)snip.rectTransform.rect.height);
+        int riw = (int)rawImage.rectTransform.rect.width;
+        int risw = (int)rawImageSnip.rectTransform.rect.width;
+        int rih = (int)rawImage.rectTransform.rect.height;
+        int rish = (int)rawImageSnip.rectTransform.rect.height;
+        int pw = photo.width;
+        int ph = photo.height;
+        int x = (((riw - risw) / 2 + (int)rawImageSnip.rectTransform.anchoredPosition.x) * pw) / riw;
+        int y = ((rih - rish) / 2 + (int)rawImageSnip.rectTransform.anchoredPosition.y) * ph / rih;
+        int width = (risw * pw) / riw;
+        int height = (rish * ph) / rih;
+        Color[] c = photo.GetPixels(x, y, width, height);
+        Texture2D m2Texture = new Texture2D(width, height);
         m2Texture.SetPixels(c);
         m2Texture.Apply();
         return m2Texture;
