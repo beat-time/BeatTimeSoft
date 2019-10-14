@@ -53,3 +53,6 @@ TagManager:
   - name: mesa2
     uniqueID: 4208531639
     locked: 0
+  - name: Kinect
+    uniqueID: 2333919039
+    locked: 0

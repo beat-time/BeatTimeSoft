@@ -33,6 +33,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Score.unity
     guid: 02f5aa0d3e3f92f46a25072c76bb59ea
   - enabled: 1
-    path: Assets/Scenes/Resume.unity
+    path: Assets/Scenes/Ranking.unity
     guid: be0ba81863de3814e81ce6953f80e659
   m_configObjects: {}
