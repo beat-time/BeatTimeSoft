@@ -13,13 +13,14 @@ public class Speed : MonoBehaviour
     void Start()
     {
         time = totalTime;
-        anim.speed = 0.0001f;
+        anim.speed = 0.69f;
+        //anim.speed = 0.0001f;
     }
 
     // Update is called once per frame
     void Update()
     {
-        time -= Time.deltaTime;
+        /*time -= Time.deltaTime;
         if (time <= 0)
         {
 
@@ -42,7 +43,7 @@ public class Speed : MonoBehaviour
                 anim.speed = 0.000001f;
             }
 
-        }
+        }*/
 
 
     }
