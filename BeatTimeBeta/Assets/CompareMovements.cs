@@ -233,7 +233,7 @@ public class CompareMovements : MonoBehaviour
         }
         else
         {
-            spriteTexture = LoadTexture(path + "noImage.png");
+            spriteTexture = LoadTexture(path + "Images//noImage.png");
         }
         Sprite newSprite = Sprite.Create(spriteTexture, new Rect(0, 0, spriteTexture.width, spriteTexture.height), Vector2.zero);
         photo.sprite = newSprite;
