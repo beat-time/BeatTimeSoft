@@ -43,10 +43,10 @@ public class ChangeMyPhoto : MonoBehaviour
         {
             ChangeOnePlayer();
         }
-        if (CursorRigth.transform.position.x > btn2.transform.position.x - 80 && CursorRigth.transform.position.x < btn2.transform.position.x + 80 && CursorRigth.transform.position.y > btn2.transform.position.y - 80 && CursorRigth.transform.position.y < btn2.transform.position.y + 80)
+        /*if (CursorRigth.transform.position.x > btn2.transform.position.x - 80 && CursorRigth.transform.position.x < btn2.transform.position.x + 80 && CursorRigth.transform.position.y > btn2.transform.position.y - 80 && CursorRigth.transform.position.y < btn2.transform.position.y + 80)
         {
             ChangeTwoPlayer();
-        }
+        }*/
     }
 
     public void ChangeOnePlayer()
