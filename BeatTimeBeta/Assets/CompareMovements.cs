@@ -18,9 +18,9 @@ public class CompareMovements : MonoBehaviour
     int cont = 0;
     int numberOfMovements = 0;
     int movementsPerSecond = 0;
-    float dif1 = 1.5f;
-    float dif2 = 2.5f;
-    float dif3 = 4f;
+    float dif1 = 2.5f;
+    float dif2 = 5.5f;
+    float dif3 = 7.8f;
     float xPlayer = 0;
     float yPlayer = 0;
     float zPlayer = 0;
@@ -35,6 +35,12 @@ public class CompareMovements : MonoBehaviour
 
     float numberOfJoints = 25;
     int points = 0;
+    float points11 = 0;
+    float points12 = 0;
+    float points13 = 0;
+    float points21 = 0;
+    float points22 = 0;
+    float points23 = 0;
     float validPositions = 0;
 
     float timeCompare = 2;
@@ -91,20 +97,25 @@ public class CompareMovements : MonoBehaviour
                     {
                         max = positions.Count;
                     }
-
+                    //points11 = 45;
                     while (inicio <= max)
                     {
+                        
                         auxPoints = 0;
                         JointsMachine = positions[inicio];
+                        //points11 = positions[1][6].x -10;
+                        
                         for (int b = 0; b < numberOfJoints; b++)
                         {
                             xPlayer = JointsPlayer[b].x;
                             yPlayer = JointsPlayer[b].y;
                             zPlayer = JointsPlayer[b].z;
 
-                            xMachine = JointsMachine[b].x;
-                            yMachine = JointsMachine[b].y;
-                            zMachine = JointsMachine[b].z;
+                            xMachine = JointsMachine[b].x/1000000;
+                            yMachine = JointsMachine[b].y/1000000;
+                            zMachine = JointsMachine[b].z/1000000;
+
+                            //Debug.Log(xMachine +" - " + yMachine + " - " + zMachine);
 
                             if (b == 0)
                             {
@@ -129,17 +140,32 @@ public class CompareMovements : MonoBehaviour
                             //float distanceBefore = Vector3.Distance(JointsPlayer[a], JointsMachine[a]);
                             float distance = Vector3.Distance(new Vector3(xPlayer, yPlayer, zPlayer), new Vector3(xMachine, yMachine, zMachine));
                             //float distanceAfter = Vector3.Distance(JointsPlayer[a], JointsMachine[a]);
+                            
+                            //distance = distance;
+                            //points = (int)distance;
+                            points11 = distance;
+                            points12 = yPlayer;
+                            points13 = zPlayer;
+
+                            points21 = xMachine;
+                            points22 = yMachine;
+                            points23 = zMachine;
+
                             if (distance <= dif1)
                             {
                                 auxPoints += 10;
                             }
                             else if (distance <= dif2)
                             {
-                                auxPoints += 5;
+                                auxPoints += 7;
                             }
-                            else 
+                            else if (distance <= dif3)
                             {
-                                auxPoints += 2;
+                                auxPoints += 4;
+                            }
+                            else
+                            {
+                                auxPoints += 1;
                             }
                             /*if (xPlayer >= xMachine - dif1 && xPlayer <= xMachine + dif1 &&
                                  yPlayer >= yMachine - dif1 && yPlayer <= yMachine + dif1 &&
@@ -160,6 +186,7 @@ public class CompareMovements : MonoBehaviour
                                  points += 2;
                              }*/
                         }
+                        
                         if (auxPoints > points)
                         {
                             points = auxPoints;
@@ -167,15 +194,16 @@ public class CompareMovements : MonoBehaviour
                         inicio += 2;
                     }
                 }
-                if (points >= 210 && points <= 250)
+                if (points >= 190 && points <= 250)
                 {
-                    qualification = "Excellent!!!";
+                    qualification = "Excellent!!";
+                  
                 }
-                else if (points >= 190 && points < 210)
+                else if (points >= 180 && points < 190)
                 {
-                    qualification = "Good!!!";
+                    qualification = "Good!!" ;
                 }
-                else if (points >= 120 && points < 190)
+                else if (points >= 160 && points < 180)
                 {
                     qualification = "Regular";
                 }

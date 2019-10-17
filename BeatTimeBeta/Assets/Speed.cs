@@ -13,7 +13,7 @@ public class Speed : MonoBehaviour
     void Start()
     {
         time = totalTime;
-        anim.speed = 0.69f;
+        //anim.speed = 0.69f;
         anim.speed = 0.0001f;
     }
 
@@ -30,7 +30,7 @@ public class Speed : MonoBehaviour
                 if (timeStart2 <= 0)
                 {
                     enabled = false;
-                    anim.speed = 0.66f;
+                    anim.speed = 0.663f;
                 }
                 else
                 {

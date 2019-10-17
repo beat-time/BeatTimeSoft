@@ -22,7 +22,7 @@ public class ReadMovements : MonoBehaviour
 
     public Dictionary<int, List<Vector3>> LoadData()
     {
-        path = Application.dataPath + "\\data.txt";
+        path = Application.dataPath + "//data.txt";
         if (File.Exists(path))
         {
             data = File.ReadAllLines(path);
