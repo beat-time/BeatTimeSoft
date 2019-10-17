@@ -6,12 +6,27 @@ ModelImporter:
   - first:
       74: 1989289236423521904
     second: Default Take
+  - first:
+      74: -623603649343465320
+    second: Scene
   externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert2SG.003
+    second: {fileID: 7806100501455280664, guid: 4c292c70873a6fb41be477d981ef6d82,
+      type: 3}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: lambert2SG_003__texture1FrankyFACE_png_002
     second: {fileID: 7806100501455280664, guid: 4c292c70873a6fb41be477d981ef6d82,
+      type: 3}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert3SG.003
+    second: {fileID: -5423730058349959353, guid: 4c292c70873a6fb41be477d981ef6d82,
       type: 3}
   - first:
       type: UnityEngine:Material
@@ -22,9 +37,20 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: lambert4SG.003
+    second: {fileID: -7394202989295985249, guid: 4c292c70873a6fb41be477d981ef6d82,
+      type: 3}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: lambert4SG_003__texture1FrankyHAIR_png_002
     second: {fileID: -7394202989295985249, guid: 4c292c70873a6fb41be477d981ef6d82,
       type: 3}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert5SG.003
+    second: {fileID: 382224095092679573, guid: 4c292c70873a6fb41be477d981ef6d82, type: 3}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -33,8 +59,20 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: lambert6SG.003
+    second: {fileID: 6359433721751934423, guid: 4c292c70873a6fb41be477d981ef6d82,
+      type: 3}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: lambert6SG_003__texture1FrankyHAND_png_002
     second: {fileID: 6359433721751934423, guid: 4c292c70873a6fb41be477d981ef6d82,
+      type: 3}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert7SG.003
+    second: {fileID: 6597232074539709521, guid: 4c292c70873a6fb41be477d981ef6d82,
       type: 3}
   - first:
       type: UnityEngine:Material
