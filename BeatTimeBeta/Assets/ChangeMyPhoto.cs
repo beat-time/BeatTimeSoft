@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.IO;
 
 public class ChangeMyPhoto : MonoBehaviour
 {
@@ -11,10 +12,28 @@ public class ChangeMyPhoto : MonoBehaviour
     public Button btn1;
     public Button btn2;
 
+    PhotoPlayerController photoPlayerController;
     // Start is called before the first frame update
     void Start()
     {
-        
+        photoPlayerController = new PhotoPlayerController();
+        string path = "Assets\\Resources\\Images\\";
+        if (File.Exists(path + "photo1.png"))
+        {
+            File.Delete(path + "photo1.png");
+        }
+        if (File.Exists(path + "photo2.png"))
+        {
+            File.Delete(path + "photo2.png");
+        }
+        if (File.Exists(path + "face1.png"))
+        {
+            File.Delete(path + "face1.png");
+        }
+        if (File.Exists(path + "face2.png"))
+        {
+            File.Delete(path + "face2.png");
+        }
     }
 
     // Update is called once per frame
@@ -24,17 +43,18 @@ public class ChangeMyPhoto : MonoBehaviour
         {
             ChangeOnePlayer();
         }
-        if (CursorRigth.transform.position.x > btn2.transform.position.x - 80 && CursorRigth.transform.position.x < btn2.transform.position.x + 80 && CursorRigth.transform.position.y > btn2.transform.position.y - 80 && CursorRigth.transform.position.y < btn2.transform.position.y + 80)
+        /*if (CursorRigth.transform.position.x > btn2.transform.position.x - 80 && CursorRigth.transform.position.x < btn2.transform.position.x + 80 && CursorRigth.transform.position.y > btn2.transform.position.y - 80 && CursorRigth.transform.position.y < btn2.transform.position.y + 80)
         {
             ChangeTwoPlayer();
-        }
+        }*/
     }
 
     public void ChangeOnePlayer()
     {
         if (CursorRigth.HandGreen == true)
         {
-            SceneManager.LoadScene("MyPhotoP1");
+            photoPlayerController.ButtonOnePlayer();
+            SceneManager.LoadScene("MyPhoto");
             //contPlayers.Players = 1;
         }
     }
@@ -43,7 +63,8 @@ public class ChangeMyPhoto : MonoBehaviour
         if (CursorRigth.HandGreen == true)
         {
             //contPlayers.Players = 2;
-            SceneManager.LoadScene("MyPhotoP1");
+            photoPlayerController.ButtonTwoPlayer();
+            SceneManager.LoadScene("MyPhoto");
         }
     }
 }

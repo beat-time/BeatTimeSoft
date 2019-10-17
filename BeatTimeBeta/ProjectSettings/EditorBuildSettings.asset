@@ -11,12 +11,18 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SelecPlayers.unity
     guid: 9aef2fd91d7cb44489a56f7488d01672
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/MyPhotoP1.unity
     guid: 6a029e70664415d4c87f877e5385de75
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/MyPhotoP2.unity
     guid: 86191847157a2ce47a66305559726c7f
+  - enabled: 1
+    path: Assets/Scenes/MyPhoto.unity
+    guid: 1e098f3d474245244a7240af515fc7ed
+  - enabled: 1
+    path: Assets/Scenes/MyPhoto2.unity
+    guid: d22949f6d4106a74fa40631e8f052d7a
   - enabled: 1
     path: Assets/Scenes/SelecThemes.unity
     guid: 7a27f610c683b9c41941f896bd6261d6
@@ -27,6 +33,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Score.unity
     guid: 02f5aa0d3e3f92f46a25072c76bb59ea
   - enabled: 1
-    path: Assets/Scenes/Resume.unity
+    path: Assets/Scenes/Ranking.unity
     guid: be0ba81863de3814e81ce6953f80e659
   m_configObjects: {}

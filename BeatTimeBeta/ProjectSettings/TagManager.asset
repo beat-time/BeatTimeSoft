@@ -41,3 +41,18 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background
+    uniqueID: 3724902957
+    locked: 0
+  - name: Foreground
+    uniqueID: 4150647633
+    locked: 0
+  - name: mesa1
+    uniqueID: 2477029819
+    locked: 0
+  - name: mesa2
+    uniqueID: 4208531639
+    locked: 0
+  - name: Kinect
+    uniqueID: 2333919039
+    locked: 0
