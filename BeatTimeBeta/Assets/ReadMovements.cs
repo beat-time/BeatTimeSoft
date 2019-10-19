@@ -45,9 +45,9 @@ public class ReadMovements : MonoBehaviour
                 while (numberOfJoints > 0)
                 {
                     string[] positionJoint = data[a].Split(char.Parse("\t"));
-                    x = float.Parse(positionJoint[0]);
-                    y = float.Parse(positionJoint[1]);
-                    z = float.Parse(positionJoint[2]);
+                    x = float.Parse(positionJoint[0].Replace(',', '.'), System.Globalization.CultureInfo.InvariantCulture);
+                    y = float.Parse(positionJoint[1].Replace(',', '.'), System.Globalization.CultureInfo.InvariantCulture);
+                    z = float.Parse(positionJoint[2].Replace(',', '.'), System.Globalization.CultureInfo.InvariantCulture);
                     if (numberOfJoints == 25)
                     {
                         xAux = x;

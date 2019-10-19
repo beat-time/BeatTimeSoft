@@ -35,13 +35,6 @@ public class CompareMovements : MonoBehaviour
 
     float numberOfJoints = 25;
     int points = 0;
-    float points11 = 0;
-    float points12 = 0;
-    float points13 = 0;
-    float points21 = 0;
-    float points22 = 0;
-    float points23 = 0;
-    float validPositions = 0;
 
     float timeCompare = 2;
     float maxTimeCompare = 2;
@@ -97,13 +90,11 @@ public class CompareMovements : MonoBehaviour
                     {
                         max = positions.Count;
                     }
-                    //points11 = 45;
                     while (inicio <= max)
                     {
                         
                         auxPoints = 0;
                         JointsMachine = positions[inicio];
-                        //points11 = positions[1][6].x -10;
                         
                         for (int b = 0; b < numberOfJoints; b++)
                         {
@@ -111,11 +102,9 @@ public class CompareMovements : MonoBehaviour
                             yPlayer = JointsPlayer[b].y;
                             zPlayer = JointsPlayer[b].z;
 
-                            xMachine = JointsMachine[b].x/1000000;
-                            yMachine = JointsMachine[b].y/1000000;
-                            zMachine = JointsMachine[b].z/1000000;
-
-                            //Debug.Log(xMachine +" - " + yMachine + " - " + zMachine);
+                            xMachine = JointsMachine[b].x;
+                            yMachine = JointsMachine[b].y;
+                            zMachine = JointsMachine[b].z;
 
                             if (b == 0)
                             {
@@ -141,16 +130,6 @@ public class CompareMovements : MonoBehaviour
                             float distance = Vector3.Distance(new Vector3(xPlayer, yPlayer, zPlayer), new Vector3(xMachine, yMachine, zMachine));
                             //float distanceAfter = Vector3.Distance(JointsPlayer[a], JointsMachine[a]);
                             
-                            //distance = distance;
-                            //points = (int)distance;
-                            points11 = distance;
-                            points12 = yPlayer;
-                            points13 = zPlayer;
-
-                            points21 = xMachine;
-                            points22 = yMachine;
-                            points23 = zMachine;
-
                             if (distance <= dif1)
                             {
                                 auxPoints += 10;
