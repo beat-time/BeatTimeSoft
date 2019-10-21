@@ -38,6 +38,7 @@ public class MessageBeforeStart : MonoBehaviour
                 {
                     canvasFranky.gameObject.SetActive(true);
                     audio_mix.Play();
+                    GetComponent<PosesController>().enabled = true;
                     enabled = false;
                 }
                 timeStart2 -= Time.deltaTime;
