@@ -1,19 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 using Windows.Kinect;
+using System.Collections.Generic;
+using System.IO;
 
 public class CoordinateMapperView : MonoBehaviour
 {
-    //public BodySourceView bodySourceView;
-    //Windows.Kinect.Body[] data;
-    //public int indicadorplayer;
-    //ulong IdTrack;
-    //ulong IdTrack2;
-    //int contador;
-
-
-
-
     public GameObject CoordinateMapperManager;
 	private CoordinateMapperManager _CoordinateMapperManager;
 
@@ -24,13 +16,11 @@ public class CoordinateMapperView : MonoBehaviour
 
 	DepthSpacePoint[] depthPoints;
 	byte[] bodyIndexPoints;
-	
+
+    static float index = -1;
+
 	void Start ()
 	{
-        //data = bodySourceView._BodyManager.GetData();
-        //contador = 0;
-
-
         ReleaseBuffers ();
 		
 		if (CoordinateMapperManager == null)
@@ -65,80 +55,44 @@ public class CoordinateMapperView : MonoBehaviour
 	{
 		//TODO: fix perf on this call.
 		depthBuffer.SetData(depthPoints);
-
-		// ComputeBuffers do not accept bytes, so we need to convert to float.
-		float[] buffer = new float[512 * 424];
-		for (int i = 0; i < bodyIndexPoints.Length; i++)
-		{
-			buffer[i] = (float)bodyIndexPoints[i];
-		}
-		bodyIndexBuffer.SetData(buffer);
-		buffer = null;
-
-
-
-        //foreach (var body in data)
-        //{
-        //    if (body == null)
-        //    {
-        //        continue;
-        //    }
-        //    if (indicadorplayer == 1)
-        //    {
-        //        if (body.IsTracked)
-        //        {
-        //            IdTrack = body.TrackingId;
-        //            contador++;
-        //        }
-        //    }
-        //    if (indicadorplayer == 2)
-        //    {
-        //        if (body.IsTracked)
-        //        {
-        //            IdTrack2 = body.TrackingId;
-        //            contador++;
-        //        }
-        //    }
-        //}
-        //contador = 0;
-
-        //if (indicadorplayer == 1)
-        //{
-        //    foreach (var body in data)
-        //    {
-        //        if (body == null)
-        //        {
-        //            continue;
-        //        }
-        //        if (body.TrackingId == IdTrack)
-        //        {
-        //        }
-        //        else
-        //        {
-        //            bodySourceView._Bodies[body.TrackingId].GetComponent<MeshRenderer>().enabled = false;
-        //        }
-        //    }
-        //}
-        //else
-        //{
-        //    if (indicadorplayer == 2)
-        //    {
-        //        foreach (var body in data)
-        //        {
-        //            if (body == null)
-        //            {
-        //                continue;
-        //            }
-        //            if (body.TrackingId == IdTrack2)
-        //            {
-        //            }
-        //            else
-        //            {
-        //                bodySourceView._Bodies[body.TrackingId].GetComponent<MeshRenderer>().enabled = false;
-        //            }
-        //        }
-        //    }
-        //}
+        // ComputeBuffers do not accept bytes, so we need to convert to float.
+        float[] buffer = new float[512 * 424];
+        float temp2 = -1;
+        for (int i = 0; i < bodyIndexPoints.Length; i++)
+        {
+            float temp = (float)bodyIndexPoints[i];
+            if (idPlayer == 1)
+            {
+                if (temp < 255)
+                {
+                    if (temp2 == -1)
+                    {
+                        temp2 = temp;
+                    }
+                    else if (temp != temp2)
+                    {
+                        temp = 255;
+                    }
+                }
+            }
+            else
+            {
+                if (temp < 255)
+                {
+                    if (temp2 == -1)
+                    {
+                        temp2 = temp;
+                    }
+                    else if (temp == temp2)
+                    {
+                        temp = 255;
+                    }
+                }
+            }
+            buffer[i] = temp;
+        }
+        bodyIndexBuffer.SetData(buffer);
+        buffer = null;
     }
 	
 	private void ReleaseBuffers() 

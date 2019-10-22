@@ -3,6 +3,7 @@ using System.Collections;
 using Windows.Kinect;
 using System.Runtime.InteropServices;
 using System;
+using System.Collections.Generic;
 
 public class CoordinateMapperManager : MonoBehaviour
 {
@@ -159,8 +160,9 @@ public class CoordinateMapperManager : MonoBehaviour
                         
                         // Get BodyIndex Frame Data.
                         if (pBodyIndexFrame != null)
-                        {
-							var pBodyIndexData = GCHandle.Alloc (pBodyIndexBuffer, GCHandleType.Pinned);
+                        {                        
+                            var pBodyIndexData = GCHandle.Alloc (pBodyIndexBuffer, GCHandleType.Pinned);
+                            var g = pBodyIndexData.AddrOfPinnedObject();
 							pBodyIndexFrame.CopyFrameDataToIntPtr(pBodyIndexData.AddrOfPinnedObject(), (uint)pBodyIndexBuffer.Length);
 							pBodyIndexData.Free();
                         }
