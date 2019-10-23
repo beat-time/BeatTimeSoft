@@ -151,7 +151,9 @@
 
             if (!findFace)
             {
-                convertTexture.SaveFace(noImage,0, 0, noImage.width, noImage.height, photoPlayerController.getTurnPlayerOne());
+                convertTexture.SaveNoImage(photoPlayerController.getTurnPlayerOne());
+                photo.sprite = convertTexture.LoadFace(photoPlayerController.getTurnPlayerOne());
+                //convertTexture.SaveFace(noImage,0, 0, noImage.width, noImage.height, photoPlayerController.getTurnPlayerOne());
             }
         }
 

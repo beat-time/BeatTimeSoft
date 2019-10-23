@@ -8,7 +8,7 @@ public class ConvertTexture : MonoBehaviour
 {
     public Texture2D Convert(bool isTurnPlayerOne)
     {
-        Texture2D sample = new Texture2D(2, 2); ;
+        Texture2D sample = new Texture2D(2, 2);
         byte[] fileData;
         string path = Application.dataPath + "//Resources//";
         if (isTurnPlayerOne)
@@ -82,5 +82,13 @@ public class ConvertTexture : MonoBehaviour
                 return Tex2D;                 // If data = readable -> return texture
         }
         return null;                     // Return null if load failed
+    }
+
+    public void SaveNoImage(bool isTurnPlayerOne)
+    {
+        byte[] file = File.ReadAllBytes(Application.dataPath + "//Resources//Images//noImage.png");
+        Texture2D t = new Texture2D(2, 2);
+        t.LoadImage(file);
+        SaveFace(t, 0, 0, t.width, t.height, isTurnPlayerOne);
     }
 }

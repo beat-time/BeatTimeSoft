@@ -8,18 +8,79 @@ using UnityEngine.UI;
 
 public class ScoreController : MonoBehaviour
 {
-    public Image photo;
-    public Text txt_score;
+    public RawImage Winner1;
+    public RawImage Winner2;
 
-    int totalPoints = 0;
+    public Image photo1;
+    public Text txt_score1;
+    public Image photo2;
+    public Text txt_score2;
 
-    float totalTime = 5;
+    public RawImage place1;
+    public RawImage newRecord;
+
+    int totalPoints1 = 0;
+    int totalPoints2 = 0;
+
+    float totalTime = 10;
+
+    Image photoWinner;
+    int totalPointsWinner = 0;
+
+    int placePlayer = -1;
+    PhotoPlayerController photoPlayerController = new PhotoPlayerController();
     // Start is called before the first frame update
+    private void Awake()
+    {
+        Winner1.gameObject.SetActive(false);
+        Winner2.gameObject.SetActive(false);
+        place1.gameObject.SetActive(false);
+        newRecord.gameObject.SetActive(false);
+    }
     void Start()
     {
-        LoadPhoto();
-        LoadScore();
+        CompareMovements compareMovements = new CompareMovements();
+        if (photoPlayerController.getTurnPlayerOne())
+        {
+            Winner1.transform.localPosition = new Vector3(0, Winner1.transform.localPosition.y, Winner1.transform.localPosition.z);
+            Winner1.gameObject.SetActive(true);
+            photo1.sprite = LoadPhoto("face1.png");
+            totalPoints1 = compareMovements.GetTotalPoints();
+            photoWinner = photo1;
+            totalPointsWinner = totalPoints1;
+        }
+        else
+        {
+            Winner1.gameObject.SetActive(true);
+            Winner2.gameObject.SetActive(true);
+            place1.gameObject.SetActive(true);
+            totalPoints1 = compareMovements.GetTotalPoints();
+            totalPoints2 = compareMovements.GetTotalPointsPlayer2();
+            if (totalPoints1 >= totalPoints2)
+            {
+                photo1.sprite = LoadPhoto("face1.png");
+                photo2.sprite = LoadPhoto("face2.png");
+                txt_score1.text = totalPoints1.ToString();
+                txt_score2.text = totalPoints2.ToString();
+                photoWinner = photo1;
+                totalPointsWinner = totalPoints1;
+            }
+            else
+            {
+                photo1.sprite = LoadPhoto("face2.png");
+                photo2.sprite = LoadPhoto("face1.png");
+                txt_score1.text = totalPoints2.ToString();
+                txt_score2.text = totalPoints1.ToString();
+                photoWinner = photo2;
+                totalPointsWinner = totalPoints2;
+            }
+        }
         SaveRanking();
+
+        if(placePlayer == 1)
+        {
+            newRecord.gameObject.SetActive(true);
+        }
     }
 
     // Update is called once per frame
@@ -32,25 +93,19 @@ public class ScoreController : MonoBehaviour
         }
     }
 
-    void LoadScore()
-    {
-        CompareMovements compareMovements = new CompareMovements();
-        totalPoints = compareMovements.GetTotalPoints();
-        txt_score.text = "Puntaje: " + totalPoints.ToString();
-    }
-    void LoadPhoto()
+    Sprite LoadPhoto(string name)
     {
         Texture2D spriteTexture = null;
         string path = Application.dataPath + "//Resources//";
-        if (File.Exists(path + "face1.png")){
-            spriteTexture = LoadTexture(path + "face1.png");
+        if (File.Exists(path + name)){
+            spriteTexture = LoadTexture(path + name);
         }
         else
         {
             spriteTexture = LoadTexture(path + "Images//noImage.png");
         }
         Sprite newSprite = Sprite.Create(spriteTexture, new Rect(0, 0, spriteTexture.width, spriteTexture.height), Vector2.zero);
-        photo.sprite = newSprite;
+        return newSprite;
     }
     Texture2D LoadTexture(string FilePath)
     {
@@ -78,9 +133,9 @@ public class ScoreController : MonoBehaviour
             if (numberOfPlayers > 0)
             {
                 int points = 0;
-                int menor = totalPoints;
+                int menor = totalPointsWinner;
                 string auxPath = path + "temporal.png";
-                byte[] bytes = photo.sprite.texture.EncodeToPNG();
+                byte[] bytes = photoWinner.sprite.texture.EncodeToPNG();
                 File.WriteAllBytes(auxPath, bytes);
 
                 for (int a = 1; a <= numberOfPlayers; a++)
@@ -88,6 +143,11 @@ public class ScoreController : MonoBehaviour
                     points = int.Parse(data[a]);
                     if (menor > points)
                     {
+                        if (placePlayer != -1)
+                        {
+                            placePlayer = a;
+                        }
+
                         data[a] = menor.ToString();
                         menor = points; ;
 
@@ -121,10 +181,10 @@ public class ScoreController : MonoBehaviour
 
     void SaveFirstPlace()
     {
-        string[] d = { "1", totalPoints.ToString() };
+        string[] d = { "1", totalPointsWinner.ToString() };
         File.WriteAllLines(Application.dataPath + "Resources//Ranking//ranking.txt", d);
 
-        byte[] bytes = photo.sprite.texture.EncodeToPNG();
+        byte[] bytes = photoWinner.sprite.texture.EncodeToPNG();
         File.WriteAllBytes(Application.dataPath + "Resources//Ranking//r1.png", bytes);
     }
 }

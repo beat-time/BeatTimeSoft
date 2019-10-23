@@ -88,6 +88,7 @@ public class BodySourceView : MonoBehaviour
             }
         }
 
+        bool oneBody = false;
         foreach(var body in data)
         {
             if (body == null)
@@ -105,9 +106,14 @@ public class BodySourceView : MonoBehaviour
                 RefreshBodyObject(body, _Bodies[body.TrackingId]);
             }
 
-			// Tracking for UI Component
-            if(body.IsTracked)
-			KinectInputModule.instance.TrackBody(body);
+            // Tracking for UI Component
+            //if(body.IsTracked)
+            //KinectInputModule.instance.TrackBody(body);
+            if(body.IsTracked && !oneBody)
+            {
+                KinectInputModule.instance.TrackBody(body);
+                oneBody = true;
+            }
         }
     }
     

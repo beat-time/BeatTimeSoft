@@ -11,9 +11,11 @@ using Kinect = Windows.Kinect;
 public class CompareMovements : MonoBehaviour
 {
     Dictionary<int, List<Vector3>> positions = new Dictionary<int, List<Vector3>>();
-    GameObject bodyObject = null;
+    GameObject bodyObject1 = null;
+    GameObject bodyObject2 = null;
     public BodySourceView bodies;
-    List<Vector3> JointsPlayer = new List<Vector3>();
+    List<Vector3> JointsPlayer1 = new List<Vector3>();
+    List<Vector3> JointsPlayer2 = new List<Vector3>();
     List<Vector3> JointsMachine = new List<Vector3>();
     int cont = 0;
     int numberOfMovements = 0;
@@ -21,31 +23,43 @@ public class CompareMovements : MonoBehaviour
     float dif1 = 2.5f;
     float dif2 = 5.5f;
     float dif3 = 7.8f;
-    float xPlayer = 0;
-    float yPlayer = 0;
-    float zPlayer = 0;
 
-    float xPlayerAux = 0;
-    float yPlayerAux = 0;
-    float zPlayerAux = 0;
+    Vector3 Player1;
+    Vector3 PlayerAux1;
+    Vector3 Player2;
+    Vector3 PlayerAux2;
+    Vector3 Machine;
+    //float xPlayer = 0;
+    //float yPlayer = 0;
+    //float zPlayer = 0;
 
-    float xMachine = 0;
-    float yMachine = 0;
-    float zMachine = 0;
+    //float xPlayerAux = 0;
+    //float yPlayerAux = 0;
+    //float zPlayerAux = 0;
+
+    //float xMachine = 0;
+    //float yMachine = 0;
+    //float zMachine = 0;
 
     float numberOfJoints = 25;
-    int points = 0;
+    int points1 = 0;
+    int points2 = 0;
 
     float timeCompare = 2;
     float maxTimeCompare = 2;
 
     public Canvas franky;
-    public Text txt_qualification;
+    public Text txt_qualification1;
+    public Text txt_qualification2;
     string qualification = "";
 
-    static int totalPoints = 0;
+    static int totalPoints1 = 0;
+    static int totalPoints2 = 0;
 
     public Image photo;
+
+    private PhotoPlayerController photoPlayerController = new PhotoPlayerController();
+    bool secondPlayer = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -56,7 +70,11 @@ public class CompareMovements : MonoBehaviour
         maxTimeCompare = timeCompare;
         movementsPerSecond = positions.Count / 56;
 
-        LoadPhoto();
+        if (!photoPlayerController.getTurnPlayerOne())
+        {
+            secondPlayer = true;
+        }
+        //LoadPhoto();
     }
 
     // Update is called once per frame
@@ -64,24 +82,58 @@ public class CompareMovements : MonoBehaviour
     {
         if (franky.isActiveAndEnabled)
         {
-            if (bodyObject == null)
+            if (bodyObject1 == null)
             {
-                if (bodies._Bodies.Count >= 1)
+                if (bodyObject2 != null)
                 {
-                    bodyObject = bodies._Bodies.Values.First();
-                    bodyObject.SetActive(false);
+                    if (bodies._Bodies.Count >= 2)
+                    {
+                        bodyObject1 = bodies._Bodies.Values.ElementAt(1);
+                    }
+                }
+                else
+                {
+                    if (bodies._Bodies.Count >= 1)
+                    {
+                        bodyObject1 = bodies._Bodies.Values.ElementAt(0);
+                    }
+                }
+
+                //bodyObject1 = bodies._Bodies.Values.First();
+            }
+            if (bodyObject2 == null && secondPlayer)
+            {
+                if (bodyObject1 != null)
+                {
+                    if (bodies._Bodies.Count >= 2)
+                    {
+                        bodyObject2 = bodies._Bodies.Values.ElementAt(1);
+                    }
+                }
+                else
+                {
+                    if (bodies._Bodies.Count >= 1)
+                    {
+                        bodyObject2 = bodies._Bodies.Values.ElementAt(0);
+                    }
                 }
             }
             if (timeCompare <= 0)
             {
-                if (bodyObject != null)
+                if (bodyObject1 != null || bodyObject2 != null)
                 {
-                    JointsPlayer = GetJoints(bodyObject);
-
+                    if (bodyObject1 != null)
+                    {
+                        JointsPlayer1 = GetJoints(bodyObject1);
+                    }
+                    if(bodyObject2 != null && secondPlayer)
+                    {
+                        JointsPlayer2 = GetJoints(bodyObject2);
+                    }
                     int inicio = numberOfMovements - movementsPerSecond;
                     int max = numberOfMovements + movementsPerSecond;
-                    int auxPoints = 0;
-
+                    int auxPoints1 = 0;
+                    int auxPoints2 = 0;
                     if (inicio < 1)
                     {
                         inicio = 1;
@@ -93,111 +145,104 @@ public class CompareMovements : MonoBehaviour
                     while (inicio <= max)
                     {
                         
-                        auxPoints = 0;
+                        auxPoints1 = 0;
+                        auxPoints2 = 0;
                         JointsMachine = positions[inicio];
                         
                         for (int b = 0; b < numberOfJoints; b++)
                         {
-                            xPlayer = JointsPlayer[b].x;
-                            yPlayer = JointsPlayer[b].y;
-                            zPlayer = JointsPlayer[b].z;
-
-                            xMachine = JointsMachine[b].x;
-                            yMachine = JointsMachine[b].y;
-                            zMachine = JointsMachine[b].z;
-
-                            if (b == 0)
+                            Machine = JointsMachine[b];
+                            if (bodyObject1 != null)
                             {
-                                xPlayerAux = xPlayer;
-                                yPlayerAux = yPlayer;
-                                zPlayerAux = zPlayer;
-
-                                xPlayer = 0;
-                                yPlayer = 0;
-                                zPlayer = 0;
+                                Player1 = JointsPlayer1[b];
+                                if (b == 0)
+                                {
+                                    PlayerAux1 = Player1;
+                                    Player1 = Vector3.zero;
+                                }
+                                else
+                                {
+                                    Player1 = TransformJoint(Player1, PlayerAux1);
+                                }
+                                float distance = Vector3.Distance(Player1, Machine);
+                                if (distance <= dif1)
+                                {
+                                    auxPoints1 += 10;
+                                }
+                                else if (distance <= dif2)
+                                {
+                                    auxPoints1 += 7;
+                                }
+                                else if (distance <= dif3)
+                                {
+                                    auxPoints1 += 4;
+                                }
+                                else
+                                {
+                                    auxPoints1 += 1;
+                                }
                             }
-                            else
+                            if (bodyObject2 != null && secondPlayer)
                             {
-                                Vector3 v = new Vector3(xPlayer, yPlayer, zPlayer);
-                                v = TransformJoint(v, new Vector3(xPlayerAux, yPlayerAux, zPlayerAux));
-
-                                xPlayer = v.x;
-                                yPlayer = v.y;
-                                zPlayer = v.z;
-
+                                Player2 = JointsPlayer2[b];
+                                if (b == 0)
+                                {
+                                    PlayerAux2 = Player2;
+                                    Player2 = Vector3.zero;
+                                }
+                                else
+                                {
+                                    Player2 = TransformJoint(Player2, PlayerAux2);
+                                }
+                                float distance = Vector3.Distance(Player2, Machine);
+                                if (distance <= dif1)
+                                {
+                                    auxPoints2 += 10;
+                                }
+                                else if (distance <= dif2)
+                                {
+                                    auxPoints2 += 7;
+                                }
+                                else if (distance <= dif3)
+                                {
+                                    auxPoints2 += 4;
+                                }
+                                else
+                                {
+                                    auxPoints2 += 1;
+                                }
                             }
-                            //float distanceBefore = Vector3.Distance(JointsPlayer[a], JointsMachine[a]);
-                            float distance = Vector3.Distance(new Vector3(xPlayer, yPlayer, zPlayer), new Vector3(xMachine, yMachine, zMachine));
-                            //float distanceAfter = Vector3.Distance(JointsPlayer[a], JointsMachine[a]);
-                            
-                            if (distance <= dif1)
-                            {
-                                auxPoints += 10;
-                            }
-                            else if (distance <= dif2)
-                            {
-                                auxPoints += 7;
-                            }
-                            else if (distance <= dif3)
-                            {
-                                auxPoints += 4;
-                            }
-                            else
-                            {
-                                auxPoints += 1;
-                            }
-                            /*if (xPlayer >= xMachine - dif1 && xPlayer <= xMachine + dif1 &&
-                                 yPlayer >= yMachine - dif1 && yPlayer <= yMachine + dif1 &&
-                                 zPlayer >= zMachine - dif1 && zPlayer <= zMachine + dif1)
-                             {
-                                 points += 10;
-                             }
-                             else if (xPlayer >= xMachine - dif2 && xPlayer <= xMachine + dif2 &&
-                                 yPlayer >= yMachine - dif2 && yPlayer <= yMachine + dif2 &&
-                                 zPlayer >= zMachine - dif2 && zPlayer <= zMachine + dif2)
-                             {
-                                 points += 5;
-                             }
-                             else if (xPlayer >= xMachine - dif3 && xPlayer <= xMachine + dif3 &&
-                                 yPlayer >= yMachine - dif3 && yPlayer <= yMachine + dif3 &&
-                                 zPlayer >= zMachine - dif3 && zPlayer <= zMachine + dif3)
-                             {
-                                 points += 2;
-                             }*/
                         }
-                        
-                        if (auxPoints > points)
+
+                        if (auxPoints1 > points1)
                         {
-                            points = auxPoints;
+                            points1 = auxPoints1;
                         }
+
+                        if (auxPoints2 > points2)
+                        {
+                            points2 = auxPoints2;
+                        }
+
                         inicio += 2;
                     }
                 }
-                if (points >= 190 && points <= 250)
-                {
-                    qualification = "Excellent!!";
-                  
-                }
-                else if (points >= 180 && points < 190)
-                {
-                    qualification = "Good!!" ;
-                }
-                else if (points >= 160 && points < 180)
-                {
-                    qualification = "Regular";
-                }
-                else
-                {
-                    qualification = "Bad";
-                }
-                totalPoints += points;
+                txt_qualification1.text = Calification(points1);
+                totalPoints1 += points1;
 
-                txt_qualification.text = qualification;
+                if(secondPlayer)
+                {
+                    txt_qualification2.text = Calification(points2);
+                    totalPoints2 += points2;
+                }
+
                 cont += numberOfMovements;
-                points = 0;
+                points1 = 0;
+                points2 = 0;
                 if (cont > positions.Count)
                 {
-                    txt_qualification.text = "";
+                    txt_qualification1.text = "";
+                    txt_qualification2.text = "";
                     //SceneManager.LoadScene("Score");
                     Initiate.Fade("Score", Color.black, 2.0f);
                     enabled = false;
@@ -209,12 +254,33 @@ public class CompareMovements : MonoBehaviour
         }
     }
 
+    string Calification(int points)
+    {
+        if (points >= 190 && points <= 250)
+        {
+            return "Excellent!!";
+
+        }
+        else if (points >= 180 && points < 190)
+        {
+            return "Good!!";
+        }
+        else if (points >= 160 && points < 180)
+        {
+            return "Regular";
+        }
+        else
+        {
+            return "Bad";
+        }
+    }
+
     List<Vector3> GetJoints(GameObject obj)
     {
         List<Vector3> joints = new List<Vector3>();
         for (Kinect.JointType jt = Kinect.JointType.SpineBase; jt <= Kinect.JointType.ThumbRight; jt++)
         {
-            Transform jointObj = bodyObject.transform.Find(jt.ToString());
+            Transform jointObj = obj.transform.Find(jt.ToString());
             joints.Add(jointObj.localPosition);
         }
         return joints;
@@ -227,7 +293,12 @@ public class CompareMovements : MonoBehaviour
 
     public int GetTotalPoints()
     {
-        return totalPoints;
+        return totalPoints1;
+    }
+
+    public int GetTotalPointsPlayer2()
+    {
+        return totalPoints2;
     }
 
     void LoadPhoto()
