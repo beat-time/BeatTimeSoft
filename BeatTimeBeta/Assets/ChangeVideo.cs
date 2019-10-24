@@ -53,6 +53,9 @@ public class ChangeVideo : MonoBehaviour
 
     public float MinWidthChange = 40;
     public float MaxHeightChange = 100;
+
+    float anchorPosition = 0;
+    bool positionInicial = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -92,7 +95,7 @@ public class ChangeVideo : MonoBehaviour
 
         if (change)
         {
-            float u = Mathf.MoveTowards(rectTransform.rect.width, 0, 150.0f);
+            float u = Mathf.MoveTowards(rectTransform.rect.width, 0, 100);
             rectTransform.sizeDelta = new Vector2(Mathf.Clamp(u, 0.0f, ImageCenterWidth), ImageCenterHeight);
             if (rectTransform.rect.width == 0)
             {
@@ -100,25 +103,25 @@ public class ChangeVideo : MonoBehaviour
                 change = false;
 
                 Change();
-               
+                renderTexture.Release();
                 video_player_center.Play();
                 video_player_center.Pause();
 
                 if (rectTransform.pivot.x == 1)
                 {
                     rectTransform.pivot = new Vector2(0, 0.5f);
-                    rectTransform.anchoredPosition = new Vector3(-ImageCenterWidth / 2, 40, 0);
+                    rectTransform.anchoredPosition = new Vector3(-ImageCenterWidth / 2 + anchorPosition, rectTransform.anchoredPosition.y, 0);
                 }
                 else
                 {
                     rectTransform.pivot = new Vector2(1, 0.5f);
-                    rectTransform.anchoredPosition = new Vector3(ImageCenterWidth / 2, 40, 0);
+                    rectTransform.anchoredPosition = new Vector3(ImageCenterWidth / 2 + anchorPosition, rectTransform.anchoredPosition.y, 0);
                 }
             }
         }
         if (newVideo)
         {
-            float u = Mathf.MoveTowards(rectTransform.rect.width, ImageCenterWidth, 150.0f);
+            float u = Mathf.MoveTowards(rectTransform.rect.width, ImageCenterWidth, 100);
             rectTransform.sizeDelta = new Vector2(Mathf.Clamp(u, 0.0f, ImageCenterWidth), ImageCenterHeight);
             if (rectTransform.rect.width == ImageCenterWidth)
             {
@@ -214,8 +217,14 @@ public class ChangeVideo : MonoBehaviour
         video_player_center.Stop();
         audio_source_center.Stop();
         change = true;
+
+        if (!positionInicial)
+        {
+            anchorPosition = rectTransform.anchoredPosition.x;
+            positionInicial = true;
+        }
         rectTransform.pivot = new Vector2(0, 0.5f);
-        rectTransform.anchoredPosition = new Vector3(-ImageCenterWidth / 2, 40, 0);
+        rectTransform.anchoredPosition = new Vector3(-ImageCenterWidth / 2 + anchorPosition, rectTransform.anchoredPosition.y, 0);
         if (contador < maxContador)
         {
             contador++;
@@ -231,8 +240,13 @@ public class ChangeVideo : MonoBehaviour
         video_player_center.Stop();
         audio_source_center.Stop();
         change = true;
+        if (!positionInicial)
+        {
+            anchorPosition = rectTransform.anchoredPosition.x;
+            positionInicial = true;
+        }
         rectTransform.pivot = new Vector2(1, 0.5f);
-        rectTransform.anchoredPosition = new Vector3(ImageCenterWidth / 2, 40, 0);
+        rectTransform.anchoredPosition = new Vector3(ImageCenterWidth / 2 + anchorPosition, rectTransform.anchoredPosition.y, 0);
 
         if (contador > 1)
         {
