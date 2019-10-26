@@ -27,7 +27,7 @@ public class ScoreController : MonoBehaviour
     Image photoWinner;
     int totalPointsWinner = 0;
 
-    int placePlayer = -1;
+    int placePlayer = 0;
     PhotoPlayerController photoPlayerController = new PhotoPlayerController();
     // Start is called before the first frame update
     private void Awake()
@@ -143,7 +143,7 @@ public class ScoreController : MonoBehaviour
                     points = int.Parse(data[a]);
                     if (menor > points)
                     {
-                        if (placePlayer != -1)
+                        if (placePlayer == 0)
                         {
                             placePlayer = a;
                         }
@@ -164,7 +164,7 @@ public class ScoreController : MonoBehaviour
 
                     File.Move(auxPath, path + "r" + numberOfPlayers + ".png");
                 }
-
+                data.Add(placePlayer.ToString());
                 string[] d = data.ToArray();
                 File.WriteAllLines(path + "ranking.txt", d);
             }
@@ -181,10 +181,11 @@ public class ScoreController : MonoBehaviour
 
     void SaveFirstPlace()
     {
-        string[] d = { "1", totalPointsWinner.ToString() };
-        File.WriteAllLines(Application.dataPath + "Resources//Ranking//ranking.txt", d);
+        placePlayer = 1;
+        string[] d = { "1", totalPointsWinner.ToString(), placePlayer.ToString()};
+        File.WriteAllLines(Application.dataPath + "//Resources//Ranking//ranking.txt", d);
 
         byte[] bytes = photoWinner.sprite.texture.EncodeToPNG();
-        File.WriteAllBytes(Application.dataPath + "Resources//Ranking//r1.png", bytes);
+        File.WriteAllBytes(Application.dataPath + "//Resources//Ranking//r1.png", bytes);
     }
 }

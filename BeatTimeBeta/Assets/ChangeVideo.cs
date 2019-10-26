@@ -56,13 +56,10 @@ public class ChangeVideo : MonoBehaviour
 
     float anchorPosition = 0;
     bool positionInicial = false;
-<<<<<<< Updated upstream
-=======
 
     PhotoPlayerController photoPlayerController;
 
     public int NPlayer;
->>>>>>> Stashed changes
     // Start is called before the first frame update
     void Start()
     {

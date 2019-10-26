@@ -608,11 +608,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-<<<<<<< Updated upstream
-=======
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, Unity.ugui, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
->>>>>>> Stashed changes
 --- !u!114 &349347331
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -631,11 +628,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-<<<<<<< Updated upstream
-=======
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, Unity.ugui,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
->>>>>>> Stashed changes
   m_Sprite: {fileID: 21300000, guid: e2da880b00603154fa402849631d2c4c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
@@ -1082,11 +1076,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-<<<<<<< Updated upstream
-=======
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, Unity.ugui,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
->>>>>>> Stashed changes
   m_Texture: {fileID: 8400000, guid: 96501a87e680bd243a54a023e2fa88f0, type: 2}
   m_UVRect:
     serializedVersion: 2
@@ -1252,11 +1243,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-<<<<<<< Updated upstream
   m_IsActive: 1
-=======
-  m_IsActive: 0
->>>>>>> Stashed changes
 --- !u!224 &817048428
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1312,10 +1299,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 1
-<<<<<<< Updated upstream
   m_RayTracingMode: 2
-=======
->>>>>>> Stashed changes
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:

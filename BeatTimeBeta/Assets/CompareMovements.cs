@@ -60,9 +60,24 @@ public class CompareMovements : MonoBehaviour
 
     private PhotoPlayerController photoPlayerController = new PhotoPlayerController();
     bool secondPlayer = false;
+
+    public RawImage progressBar;
+    float progressBarWidth;
+
+    float totalPerfectPoints;
+
+    ProgressBar barPlayer1;
+    ProgressBar barPlayer2;
+    public RawImage rawImageBar1;
+    public RawImage rawImageBar2;
+
+    bool changeScene = false;
+    float timeChangeScene = 5;
     // Start is called before the first frame update
     void Start()
     {
+        txt_qualification1.text = "0";
+        txt_qualification2.text = "0";
         ReadMovements leerMovimientos = new ReadMovements();
         positions = leerMovimientos.LoadData();
         numberOfMovements = positions.Count / 28;
@@ -74,6 +89,10 @@ public class CompareMovements : MonoBehaviour
         {
             secondPlayer = true;
         }
+        progressBarWidth = progressBar.rectTransform.rect.width;
+        totalPerfectPoints = 28 * 250;
+        barPlayer1 = rawImageBar1.GetComponent<ProgressBar>();
+        barPlayer2 = rawImageBar2.GetComponent<ProgressBar>();
         //LoadPhoto();
     }
 
@@ -118,7 +137,7 @@ public class CompareMovements : MonoBehaviour
                     }
                 }
             }
-            if (timeCompare <= 0)
+            if (timeCompare <= 0 && !changeScene)
             {
                 if (bodyObject1 != null || bodyObject2 != null)
                 {
@@ -227,13 +246,15 @@ public class CompareMovements : MonoBehaviour
                         inicio += 2;
                     }
                 }
-                txt_qualification1.text = Calification(points1);
                 totalPoints1 += points1;
+                txt_qualification1.text = totalPoints1.ToString();//Calification(points1);
+                barPlayer1.progress = totalPoints1 * progressBarWidth / totalPerfectPoints;
 
-                if(secondPlayer)
+                if (secondPlayer)
                 {
-                    txt_qualification2.text = Calification(points2);
                     totalPoints2 += points2;
+                    txt_qualification2.text = totalPoints2.ToString();//Calification(points2);
+                    barPlayer2.progress = totalPoints2 * progressBarWidth / totalPerfectPoints;
                 }
 
                 cont += numberOfMovements;
@@ -241,16 +262,23 @@ public class CompareMovements : MonoBehaviour
                 points2 = 0;
                 if (cont > positions.Count)
                 {
-                    txt_qualification1.text = "";
-                    txt_qualification2.text = "";
-                    //SceneManager.LoadScene("Score");
-                    Initiate.Fade("Score", Color.black, 2.0f);
-                    enabled = false;
-                    //UnityEditor.EditorApplication.isPlaying = false;
+                    changeScene = true;
                 }
                 timeCompare = maxTimeCompare;
             }
             timeCompare -= Time.deltaTime;
+
+            if (changeScene)
+            {
+                if (timeChangeScene <= 0)
+                {
+                    txt_qualification1.text = "";
+                    txt_qualification2.text = "";
+                    Initiate.Fade("Score", Color.black, 2.0f);
+                    enabled = false;
+                }
+                timeChangeScene -= Time.deltaTime;
+            }
         }
     }
 
