@@ -64,4 +64,14 @@ public class PhotoPlayerController : MonoBehaviour
     {
         return turnPlayerOne;
     }
+    public bool getNPlayer1()
+    {
+        if (NPlayer == 1)
+        {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 }

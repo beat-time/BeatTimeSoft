@@ -10,7 +10,7 @@ public class ChangeVideo : MonoBehaviour
     public KinectUICursor CursorLeft;
     public Button BtnStart;
     public int contador = 1;
-    int maxContador = 5;
+    int maxContador = 3;
   
 
     public RawImage imageCenter;
@@ -56,19 +56,47 @@ public class ChangeVideo : MonoBehaviour
 
     float anchorPosition = 0;
     bool positionInicial = false;
+<<<<<<< Updated upstream
+=======
+
+    PhotoPlayerController photoPlayerController;
+
+    public int NPlayer;
+>>>>>>> Stashed changes
     // Start is called before the first frame update
     void Start()
     {
+
+        photoPlayerController = new PhotoPlayerController();
+
+        if (photoPlayerController.getNPlayer1())
+        {
+            NPlayer = 1;
+        }
+        else {
+            NPlayer = 2;
+        }
         video_player_center = imageCenter.GetComponent<VideoPlayer>();
         audio_source_center = imageCenter.GetComponent<AudioSource>();
 
-
-        //video_player_center.clip = v1.clip;
-        video_player_center.clip = Resources.Load<VideoClip>("VideoMusica\\1");    
-        video_player_center.Play();
-        //audio_source_center = m1;
-        audio_source_center.clip = Resources.Load<AudioClip>("VideoMusica\\1");
-        audio_source_center.Play();
+        if (NPlayer == 1)
+        {
+            //video_player_center.clip = v1.clip;
+            video_player_center.clip = Resources.Load<VideoClip>("VideoMusica\\1");
+            video_player_center.Play();
+            //audio_source_center = m1;
+            audio_source_center.clip = Resources.Load<AudioClip>("VideoMusica\\1");
+            audio_source_center.Play();
+        }
+        else
+        {
+            //video_player_center.clip = v1.clip;
+            video_player_center.clip = Resources.Load<VideoClip>("VideoMusica\\6");
+            video_player_center.Play();
+            //audio_source_center = m1;
+            audio_source_center.clip = Resources.Load<AudioClip>("VideoMusica\\6");
+            audio_source_center.Play();
+        }
 
         crHeight = CursorRight.GetComponent<RectTransform>().rect.height;
         crWidth = CursorRight.GetComponent<RectTransform>().rect.width;
@@ -279,31 +307,63 @@ public class ChangeVideo : MonoBehaviour
     }
     public void Change()
     {
-        if (contador == 1)
+        if (NPlayer == 1)
         {
-            video_player_center.clip = Resources.Load<VideoClip>("VideoMusica\\1");
-            audio_source_center.clip = Resources.Load<AudioClip>("VideoMusica\\1");
 
+            if (contador == 1)
+            {
+                video_player_center.clip = Resources.Load<VideoClip>("VideoMusica\\1");
+                audio_source_center.clip = Resources.Load<AudioClip>("VideoMusica\\1");
+
+            }
+            else if (contador == 2)
+            {
+                video_player_center.clip = Resources.Load<VideoClip>("VideoMusica\\2");
+                audio_source_center.clip = Resources.Load<AudioClip>("VideoMusica\\2");
+            }
+            else if (contador == 3)
+            {
+                video_player_center.clip = Resources.Load<VideoClip>("VideoMusica\\3");
+                audio_source_center.clip = Resources.Load<AudioClip>("VideoMusica\\3");
+            }
+            /*else if (contador == 4)
+            {
+                video_player_center.clip = Resources.Load<VideoClip>("VideoMusica\\4");
+                audio_source_center.clip = Resources.Load<AudioClip>("VideoMusica\\4");
+            }
+            else if (contador == 5)
+            {
+                video_player_center.clip = Resources.Load<VideoClip>("VideoMusica\\5");
+                audio_source_center.clip = Resources.Load<AudioClip>("VideoMusica\\5");
+            }*/
         }
-        else if (contador == 2)
-        {
-            video_player_center.clip = Resources.Load<VideoClip>("VideoMusica\\2");
-            audio_source_center.clip = Resources.Load<AudioClip>("VideoMusica\\2");
-        }
-        else if (contador == 3)
-        {
-            video_player_center.clip = Resources.Load<VideoClip>("VideoMusica\\3");
-            audio_source_center.clip = Resources.Load<AudioClip>("VideoMusica\\3");
-        }
-        else if (contador == 4)
-        {
-            video_player_center.clip = Resources.Load<VideoClip>("VideoMusica\\4");
-            audio_source_center.clip = Resources.Load<AudioClip>("VideoMusica\\4");
-        }
-        else if (contador == 5)
-        {
-            video_player_center.clip = Resources.Load<VideoClip>("VideoMusica\\5");
-            audio_source_center.clip = Resources.Load<AudioClip>("VideoMusica\\5");
+        else {
+            if (contador == 1)
+            {
+                video_player_center.clip = Resources.Load<VideoClip>("VideoMusica\\6");
+                audio_source_center.clip = Resources.Load<AudioClip>("VideoMusica\\6");
+
+            }
+            else if (contador == 2)
+            {
+                video_player_center.clip = Resources.Load<VideoClip>("VideoMusica\\7");
+                audio_source_center.clip = Resources.Load<AudioClip>("VideoMusica\\7");
+            }
+            else if (contador == 3)
+            {
+                video_player_center.clip = Resources.Load<VideoClip>("VideoMusica\\8");
+                audio_source_center.clip = Resources.Load<AudioClip>("VideoMusica\\8");
+            }
+            /*else if (contador == 4)
+            {
+                video_player_center.clip = Resources.Load<VideoClip>("VideoMusica\\9");
+                audio_source_center.clip = Resources.Load<AudioClip>("VideoMusica\\9");
+            }
+            else if (contador == 5)
+            {
+                video_player_center.clip = Resources.Load<VideoClip>("VideoMusica\\10");
+                audio_source_center.clip = Resources.Load<AudioClip>("VideoMusica\\10");
+            }*/
         }
     }
 }
