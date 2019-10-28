@@ -1445,7 +1445,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rectTransform: {fileID: 0}
-  barra: {fileID: 209289627}
+  barra: {fileID: 209289625}
   progress: 0
 --- !u!1 &362643536
 GameObject:
@@ -1531,7 +1531,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rectTransform: {fileID: 0}
-  barra: {fileID: 799385137}
+  barra: {fileID: 799385135}
   progress: 0
 --- !u!1 &376296670
 GameObject:
@@ -1621,7 +1621,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &420649073
 MonoBehaviour:
   m_ObjectHideFlags: 0

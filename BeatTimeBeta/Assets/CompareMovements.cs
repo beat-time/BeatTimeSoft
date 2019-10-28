@@ -90,7 +90,7 @@ public class CompareMovements : MonoBehaviour
             secondPlayer = true;
         }
         progressBarWidth = progressBar.rectTransform.rect.width;
-        totalPerfectPoints = 28 * 250;
+        totalPerfectPoints = 10 * 250;
         barPlayer1 = rawImageBar1.GetComponent<ProgressBar>();
         barPlayer2 = rawImageBar2.GetComponent<ProgressBar>();
         //LoadPhoto();
@@ -248,13 +248,13 @@ public class CompareMovements : MonoBehaviour
                 }
                 totalPoints1 += points1;
                 txt_qualification1.text = totalPoints1.ToString();//Calification(points1);
-                barPlayer1.progress = totalPoints1 * progressBarWidth / totalPerfectPoints;
+                barPlayer1.progress += points1 * progressBarWidth / totalPerfectPoints;
 
                 if (secondPlayer)
                 {
                     totalPoints2 += points2;
                     txt_qualification2.text = totalPoints2.ToString();//Calification(points2);
-                    barPlayer2.progress = totalPoints2 * progressBarWidth / totalPerfectPoints;
+                    barPlayer2.progress += points2 * progressBarWidth / totalPerfectPoints;
                 }
 
                 cont += numberOfMovements;
