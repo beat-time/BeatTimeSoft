@@ -246,14 +246,30 @@ public class CompareMovements : MonoBehaviour
                         inicio += 2;
                     }
                 }
-                totalPoints1 += points1;
+                points1 = 250;
                 txt_qualification1.text = totalPoints1.ToString();//Calification(points1);
+                if (!barPlayer1.move)
+                {
+                    totalPoints1 += 2 * points1;
+                }
+                else
+                {
+                    totalPoints1 += points1;
+                }
                 barPlayer1.progress += points1 * progressBarWidth / totalPerfectPoints;
 
                 if (secondPlayer)
                 {
-                    totalPoints2 += points2;
+                    points2 = 200;;
                     txt_qualification2.text = totalPoints2.ToString();//Calification(points2);
+                    if (!barPlayer2.move)
+                    {
+                        totalPoints2 += 2 * points2;
+                    }
+                    else
+                    {
+                        totalPoints2 += points2;
+                    }
                     barPlayer2.progress += points2 * progressBarWidth / totalPerfectPoints;
                 }
 

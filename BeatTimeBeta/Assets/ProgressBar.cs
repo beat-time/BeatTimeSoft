@@ -13,7 +13,7 @@ public class ProgressBar : MonoBehaviour
 
     float timeSeconds = 5;
     float maxTime = 0;
-    bool move = true;
+    public bool move = true;
     // Start is called before the first frame update
     void Start()
     {
