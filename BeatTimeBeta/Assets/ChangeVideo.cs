@@ -60,6 +60,10 @@ public class ChangeVideo : MonoBehaviour
     PhotoPlayerController photoPlayerController;
 
     public int NPlayer;
+
+    public Text txt_song;
+    public Text txt_singer;
+    public Text txt_level;
     // Start is called before the first frame update
     void Start()
     {
@@ -84,6 +88,8 @@ public class ChangeVideo : MonoBehaviour
             //audio_source_center = m1;
             audio_source_center.clip = Resources.Load<AudioClip>("VideoMusica\\1");
             audio_source_center.Play();
+
+            AssignSingerAndSongAndLevel("Mark Ronsong ft. Bruno Mars", "Uptown Funk", "Difícil");
         }
         else
         {
@@ -93,6 +99,7 @@ public class ChangeVideo : MonoBehaviour
             //audio_source_center = m1;
             audio_source_center.clip = Resources.Load<AudioClip>("VideoMusica\\6");
             audio_source_center.Play();
+            AssignSingerAndSongAndLevel("Mark Ronsong ft. Bruno Mars", "Uptown Funk", "Difícil");
         }
 
         crHeight = CursorRight.GetComponent<RectTransform>().rect.height;
@@ -311,17 +318,19 @@ public class ChangeVideo : MonoBehaviour
             {
                 video_player_center.clip = Resources.Load<VideoClip>("VideoMusica\\1");
                 audio_source_center.clip = Resources.Load<AudioClip>("VideoMusica\\1");
-
+                AssignSingerAndSongAndLevel("Mark Ronsong ft. Bruno Mars", "Uptown Funk", "Difícil");
             }
             else if (contador == 2)
             {
                 video_player_center.clip = Resources.Load<VideoClip>("VideoMusica\\2");
                 audio_source_center.clip = Resources.Load<AudioClip>("VideoMusica\\2");
+                AssignSingerAndSongAndLevel("Aqua", "Barbie Girl", "Medio");
             }
             else if (contador == 3)
             {
                 video_player_center.clip = Resources.Load<VideoClip>("VideoMusica\\3");
                 audio_source_center.clip = Resources.Load<AudioClip>("VideoMusica\\3");
+                AssignSingerAndSongAndLevel("Katy Perry ft.Juicy J", "Dark Horse", "Fácil");
             }
             /*else if (contador == 4)
             {
@@ -339,17 +348,19 @@ public class ChangeVideo : MonoBehaviour
             {
                 video_player_center.clip = Resources.Load<VideoClip>("VideoMusica\\6");
                 audio_source_center.clip = Resources.Load<AudioClip>("VideoMusica\\6");
-
+                AssignSingerAndSongAndLevel("Mark Ronsong ft. Bruno Mars", "Uptown Funk", "Difícil");
             }
             else if (contador == 2)
             {
                 video_player_center.clip = Resources.Load<VideoClip>("VideoMusica\\7");
                 audio_source_center.clip = Resources.Load<AudioClip>("VideoMusica\\7");
+                AssignSingerAndSongAndLevel("Haddaway", "What Is Love", "Fácil");
             }
             else if (contador == 3)
             {
                 video_player_center.clip = Resources.Load<VideoClip>("VideoMusica\\8");
                 audio_source_center.clip = Resources.Load<AudioClip>("VideoMusica\\8");
+                AssignSingerAndSongAndLevel("Coldplay", "Adventure Of A Lifetime", "Medio");
             }
             /*else if (contador == 4)
             {
@@ -362,6 +373,13 @@ public class ChangeVideo : MonoBehaviour
                 audio_source_center.clip = Resources.Load<AudioClip>("VideoMusica\\10");
             }*/
         }
+    }
+
+    void AssignSingerAndSongAndLevel(string singer, string song, string level)
+    {
+        txt_singer.text = singer;
+        txt_song.text = song;
+        txt_level.text = level;
     }
 }
 
