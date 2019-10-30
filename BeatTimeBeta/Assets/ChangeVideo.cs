@@ -10,7 +10,7 @@ public class ChangeVideo : MonoBehaviour
     public KinectUICursor CursorLeft;
     public Button BtnStart;
     public int contador = 1;
-    int maxContador = 3;
+    int maxContador = 5;
   
 
     public RawImage imageCenter;
@@ -318,13 +318,13 @@ public class ChangeVideo : MonoBehaviour
             {
                 video_player_center.clip = Resources.Load<VideoClip>("VideoMusica\\1");
                 audio_source_center.clip = Resources.Load<AudioClip>("VideoMusica\\1");
-                AssignSingerAndSongAndLevel("Mark Ronsong ft. Bruno Mars", "Uptown Funk", "Difícil");
+                AssignSingerAndSongAndLevel("Aqua", "Barbie Girl", "Medio");
             }
             else if (contador == 2)
             {
                 video_player_center.clip = Resources.Load<VideoClip>("VideoMusica\\2");
                 audio_source_center.clip = Resources.Load<AudioClip>("VideoMusica\\2");
-                AssignSingerAndSongAndLevel("Aqua", "Barbie Girl", "Medio");
+                AssignSingerAndSongAndLevel("Haddaway", "What Is Love", "Medio");
             }
             else if (contador == 3)
             {
@@ -332,46 +332,50 @@ public class ChangeVideo : MonoBehaviour
                 audio_source_center.clip = Resources.Load<AudioClip>("VideoMusica\\3");
                 AssignSingerAndSongAndLevel("Katy Perry ft.Juicy J", "Dark Horse", "Fácil");
             }
-            /*else if (contador == 4)
+            else if (contador == 4)
             {
                 video_player_center.clip = Resources.Load<VideoClip>("VideoMusica\\4");
                 audio_source_center.clip = Resources.Load<AudioClip>("VideoMusica\\4");
+                AssignSingerAndSongAndLevel("Mark Ronsong ft. Bruno Mars", "Uptown Funk", "Difícil");
             }
             else if (contador == 5)
             {
                 video_player_center.clip = Resources.Load<VideoClip>("VideoMusica\\5");
                 audio_source_center.clip = Resources.Load<AudioClip>("VideoMusica\\5");
-            }*/
+                AssignSingerAndSongAndLevel("Sia", "Chandelier", "Fácil");
+            }
         }
         else {
             if (contador == 1)
             {
                 video_player_center.clip = Resources.Load<VideoClip>("VideoMusica\\6");
                 audio_source_center.clip = Resources.Load<AudioClip>("VideoMusica\\6");
-                AssignSingerAndSongAndLevel("Mark Ronsong ft. Bruno Mars", "Uptown Funk", "Difícil");
+                AssignSingerAndSongAndLevel("Coldplay", "Adventure Of A Lifetime", "Medio");
             }
             else if (contador == 2)
             {
                 video_player_center.clip = Resources.Load<VideoClip>("VideoMusica\\7");
                 audio_source_center.clip = Resources.Load<AudioClip>("VideoMusica\\7");
-                AssignSingerAndSongAndLevel("Haddaway", "What Is Love", "Fácil");
+                AssignSingerAndSongAndLevel("Justin Bieber", "Sorry", "Fácil");
             }
             else if (contador == 3)
             {
                 video_player_center.clip = Resources.Load<VideoClip>("VideoMusica\\8");
                 audio_source_center.clip = Resources.Load<AudioClip>("VideoMusica\\8");
-                AssignSingerAndSongAndLevel("Coldplay", "Adventure Of A Lifetime", "Medio");
+                AssignSingerAndSongAndLevel("Nacho", "Bailame", "Medio");
             }
-            /*else if (contador == 4)
+            else if (contador == 4)
             {
                 video_player_center.clip = Resources.Load<VideoClip>("VideoMusica\\9");
                 audio_source_center.clip = Resources.Load<AudioClip>("VideoMusica\\9");
+                AssignSingerAndSongAndLevel("Pharrell Williams", "Happy", "Fácil");
             }
             else if (contador == 5)
             {
                 video_player_center.clip = Resources.Load<VideoClip>("VideoMusica\\10");
                 audio_source_center.clip = Resources.Load<AudioClip>("VideoMusica\\10");
-            }*/
+                AssignSingerAndSongAndLevel("Reik ft. Maluma", "Amigos Con Derechos", "Fácil");
+            }
         }
     }
 
