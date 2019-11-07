@@ -7,11 +7,15 @@ public class Activate : MonoBehaviour
 {
     public Image ImgButton;
     public BodySourceView bodySourceView;
+    public RawImage logo;
+    public RawImage Indicaciones;
 
     // Start is called before the first frame update
     void Start()
     {
         ImgButton = GameObject.Find("BtnDesactivado").GetComponent<Image>();
+        logo.gameObject.SetActive(true);
+        Indicaciones.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -20,9 +24,13 @@ public class Activate : MonoBehaviour
         if (bodySourceView.Active == true)
         {
             ImgButton.sprite = Resources.Load<Sprite>("Images/btnON");
+            logo.gameObject.SetActive(false);
+            Indicaciones.gameObject.SetActive(true);
         }
         else {
             ImgButton.sprite = Resources.Load<Sprite>("Images/btnOF");
+            logo.gameObject.SetActive(true);
+            Indicaciones.gameObject.SetActive(false);
         }
         
     }

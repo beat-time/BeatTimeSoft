@@ -11,11 +11,13 @@ public class RankingController : MonoBehaviour
     public RawImage r3;
     public RawImage r4;
     public RawImage r5;
+
+    public RawImage arrowPlayer;
     // Start is called before the first frame update
     void Start()
     {
         ClearScreen();
-        LoadRanking();  
+        LoadRanking();
     }
 
     // Update is called once per frame
@@ -69,6 +71,7 @@ public class RankingController : MonoBehaviour
                         r5.GetComponentInChildren<Text>().text = score.ToString() + " PTS.";
                     }
                 }
+                LoadArrowPlayer(int.Parse(data[numberOfPlayers+1]));
             }
         }
     }
@@ -80,8 +83,43 @@ public class RankingController : MonoBehaviour
         r3.gameObject.SetActive(false);
         r4.gameObject.SetActive(false);
         r5.gameObject.SetActive(false);
+
+        arrowPlayer.gameObject.SetActive(false);
     }
 
+    void LoadArrowPlayer(int playerPosicion)
+    {
+        if (playerPosicion == 0)
+        {
+            arrowPlayer.gameObject.SetActive(false);
+        }
+        else if(playerPosicion == 1)
+        {
+            SetArrowPlayer(r1);
+        }
+        else if (playerPosicion == 2)
+        {
+            SetArrowPlayer(r2);
+        }
+        else if (playerPosicion == 3)
+        {
+            SetArrowPlayer(r3);
+        }
+        else if (playerPosicion == 4)
+        {
+            SetArrowPlayer(r4);
+        }
+        else if (playerPosicion == 5)
+        {
+            SetArrowPlayer(r5);
+        }
+    }
+    void SetArrowPlayer(RawImage rawImage)
+    {
+        arrowPlayer.gameObject.SetActive(true);
+        arrowPlayer.transform.SetParent(rawImage.transform);
+        arrowPlayer.rectTransform.localPosition = new Vector3(-235, 0, 0);
+    }
     Texture2D LoadPhoto(string name)
     {
         Texture2D spriteTexture = null;

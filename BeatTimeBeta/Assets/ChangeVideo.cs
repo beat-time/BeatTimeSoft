@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -10,8 +11,10 @@ public class ChangeVideo : MonoBehaviour
     public KinectUICursor CursorLeft;
     public Button BtnStart;
     public int contador = 1;
-    int maxContador = 3;
-  
+    int maxContador = 5;
+
+    public RawImage imageL;
+    public RawImage imageR;
 
     public RawImage imageCenter;
     
@@ -56,13 +59,14 @@ public class ChangeVideo : MonoBehaviour
 
     float anchorPosition = 0;
     bool positionInicial = false;
-<<<<<<< Updated upstream
-=======
 
     PhotoPlayerController photoPlayerController;
 
     public int NPlayer;
->>>>>>> Stashed changes
+
+    public Text txt_song;
+    public Text txt_singer;
+    public Text txt_level;
     // Start is called before the first frame update
     void Start()
     {
@@ -87,6 +91,9 @@ public class ChangeVideo : MonoBehaviour
             //audio_source_center = m1;
             audio_source_center.clip = Resources.Load<AudioClip>("VideoMusica\\1");
             audio_source_center.Play();
+
+            AssignSingerAndSongAndLevel("Aqua", "Barbie Girl", "Medio");
+            AssignImageLeftAndRight(1);
         }
         else
         {
@@ -96,6 +103,8 @@ public class ChangeVideo : MonoBehaviour
             //audio_source_center = m1;
             audio_source_center.clip = Resources.Load<AudioClip>("VideoMusica\\6");
             audio_source_center.Play();
+            AssignSingerAndSongAndLevel("Coldplay", "Adventure Of A Lifetime", "Medio");
+            AssignImageLeftAndRight(1);
         }
 
         crHeight = CursorRight.GetComponent<RectTransform>().rect.height;
@@ -261,6 +270,7 @@ public class ChangeVideo : MonoBehaviour
         {
             contador = 1;
         }
+        AssignImageLeftAndRight(contador);
     }
 
     public void Change_Before()
@@ -284,6 +294,7 @@ public class ChangeVideo : MonoBehaviour
         {
             contador = maxContador;
         }
+        AssignImageLeftAndRight(contador);
     }
     public void Click_Start()
     {
@@ -294,14 +305,105 @@ public class ChangeVideo : MonoBehaviour
                 CursorRight.transform.position.y - crHeight / 2 >= btnPosY - btnHeight / 2 &&
                 CursorRight.transform.position.y + crHeight / 2 <= btnPosY + btnHeight / 2)
             {
-                SceneManager.LoadScene("Playing");
+                if (NPlayer == 1)
+                {
+                    if (contador == 1)
+                    {
+                        SceneManager.LoadScene("Playing1");
+                    }
+                    else if (contador == 2)
+                    {
+                        SceneManager.LoadScene("Playing2");
+                    }
+                    else if (contador == 3)
+                    {
+                        SceneManager.LoadScene("Playing3");
+                    }
+                    else if (contador == 4)
+                    {
+                        SceneManager.LoadScene("Playing4");
+                    }
+                    else if (contador == 5)
+                    {
+                        SceneManager.LoadScene("Playing5");
+                    }
+                }
+                else
+                {
+                    if (contador == 1)
+                    {
+                        SceneManager.LoadScene("Playing6");
+                    }
+                    else if (contador == 2)
+                    {
+                        SceneManager.LoadScene("Playing7");
+                    }
+                    else if (contador == 3)
+                    {
+                        SceneManager.LoadScene("Playing8");
+                    }
+                    else if (contador == 4)
+                    {
+                        SceneManager.LoadScene("Playing9");
+                    }
+                    else if (contador == 5)
+                    {
+                        SceneManager.LoadScene("Playing10");
+                    }
+                }
+                
             }
             else if (CursorLeft.transform.position.x - clWidth / 2 >= btnPosX - btnWidth / 2 &&
                 CursorLeft.transform.position.x + clWidth / 2 <= btnPosX + btnWidth / 2 &&
                 CursorLeft.transform.position.y - clHeight / 2 >= btnPosY - btnHeight / 2 &&
                 CursorLeft.transform.position.y + clHeight / 2 <= btnPosY + btnHeight / 2)
             {
-                SceneManager.LoadScene("Playing");
+                if (NPlayer == 1)
+                {
+                    if (contador == 1)
+                    {
+                        SceneManager.LoadScene("Playing1");
+                    }
+                    else if (contador == 2)
+                    {
+                        SceneManager.LoadScene("Playing2");
+                    }
+                    else if (contador == 3)
+                    {
+                        SceneManager.LoadScene("Playing3");
+                    }
+                    else if (contador == 4)
+                    {
+                        SceneManager.LoadScene("Playing4");
+                    }
+                    else if (contador == 5)
+                    {
+                        SceneManager.LoadScene("Playing5");
+                    }
+                }
+                else
+                {
+                    if (contador == 1)
+                    {
+                        SceneManager.LoadScene("Playing6");
+                    }
+                    else if (contador == 2)
+                    {
+                        SceneManager.LoadScene("Playing7");
+                    }
+                    else if (contador == 3)
+                    {
+                        SceneManager.LoadScene("Playing8");
+                    }
+                    else if (contador == 4)
+                    {
+                        SceneManager.LoadScene("Playing9");
+                    }
+                    else if (contador == 5)
+                    {
+                        SceneManager.LoadScene("Playing10");
+                    }
+                }
             }
         }
     }
@@ -314,57 +416,118 @@ public class ChangeVideo : MonoBehaviour
             {
                 video_player_center.clip = Resources.Load<VideoClip>("VideoMusica\\1");
                 audio_source_center.clip = Resources.Load<AudioClip>("VideoMusica\\1");
-
+                AssignSingerAndSongAndLevel("Aqua", "Barbie Girl", "Medio");
             }
             else if (contador == 2)
             {
                 video_player_center.clip = Resources.Load<VideoClip>("VideoMusica\\2");
                 audio_source_center.clip = Resources.Load<AudioClip>("VideoMusica\\2");
+                AssignSingerAndSongAndLevel("Haddaway", "What Is Love", "Medio");
             }
             else if (contador == 3)
             {
                 video_player_center.clip = Resources.Load<VideoClip>("VideoMusica\\3");
                 audio_source_center.clip = Resources.Load<AudioClip>("VideoMusica\\3");
+                AssignSingerAndSongAndLevel("Katy Perry ft.Juicy J", "Dark Horse", "Fácil");
             }
-            /*else if (contador == 4)
+            else if (contador == 4)
             {
                 video_player_center.clip = Resources.Load<VideoClip>("VideoMusica\\4");
                 audio_source_center.clip = Resources.Load<AudioClip>("VideoMusica\\4");
+                AssignSingerAndSongAndLevel("Mark Ronsong ft. Bruno Mars", "Uptown Funk", "Difícil");
             }
             else if (contador == 5)
             {
                 video_player_center.clip = Resources.Load<VideoClip>("VideoMusica\\5");
                 audio_source_center.clip = Resources.Load<AudioClip>("VideoMusica\\5");
-            }*/
+                AssignSingerAndSongAndLevel("Sia", "Chandelier", "Fácil");
+            }
         }
         else {
             if (contador == 1)
             {
                 video_player_center.clip = Resources.Load<VideoClip>("VideoMusica\\6");
                 audio_source_center.clip = Resources.Load<AudioClip>("VideoMusica\\6");
-
+                AssignSingerAndSongAndLevel("Coldplay", "Adventure Of A Lifetime", "Medio");
             }
             else if (contador == 2)
             {
                 video_player_center.clip = Resources.Load<VideoClip>("VideoMusica\\7");
                 audio_source_center.clip = Resources.Load<AudioClip>("VideoMusica\\7");
+                AssignSingerAndSongAndLevel("Justin Bieber", "Sorry", "Fácil");
             }
             else if (contador == 3)
             {
                 video_player_center.clip = Resources.Load<VideoClip>("VideoMusica\\8");
                 audio_source_center.clip = Resources.Load<AudioClip>("VideoMusica\\8");
+                AssignSingerAndSongAndLevel("Nacho", "Bailame", "Medio");
             }
-            /*else if (contador == 4)
+            else if (contador == 4)
             {
                 video_player_center.clip = Resources.Load<VideoClip>("VideoMusica\\9");
                 audio_source_center.clip = Resources.Load<AudioClip>("VideoMusica\\9");
+                AssignSingerAndSongAndLevel("Pharrell Williams", "Happy", "Fácil");
             }
             else if (contador == 5)
             {
                 video_player_center.clip = Resources.Load<VideoClip>("VideoMusica\\10");
                 audio_source_center.clip = Resources.Load<AudioClip>("VideoMusica\\10");
-            }*/
+                AssignSingerAndSongAndLevel("Reik ft. Maluma", "Amigos Con Derechos", "Fácil");
+            }
         }
+    }
+
+    void AssignSingerAndSongAndLevel(string singer, string song, string level)
+    {
+        txt_singer.text = singer;
+        txt_song.text = song;
+        txt_level.text = level;
+    }
+
+    void AssignImageLeftAndRight(int numberImageCenter)
+    {
+        int right = (numberImageCenter == maxContador) ? 1 : (numberImageCenter + 1);
+        int left = (numberImageCenter == 1) ? maxContador : (numberImageCenter - 1); ;
+        if (NPlayer == 1)
+        {
+            imageR.texture = LoadRawImage(right + ".png");
+            imageL.texture = LoadRawImage(left + ".png");
+        }
+        else
+        {
+            imageR.texture = LoadRawImage((right + maxContador) + ".png");
+            imageL.texture = LoadRawImage((left + maxContador) + ".png");
+        }
+    }
+
+    Texture2D LoadRawImage(string number)
+    {
+        Texture2D spriteTexture = null;
+        string path = Application.dataPath + "//Resources//VideoMusica//";
+        if (File.Exists(path + number))
+        {
+            spriteTexture = LoadTexture(path + number);
+        }
+        else
+        {
+            spriteTexture = LoadTexture(Application.dataPath + "//Resources//Images//noImage.png");
+        }
+        return spriteTexture;
+        //Sprite newSprite = Sprite.Create(spriteTexture, new Rect(0, 0, spriteTexture.width, spriteTexture.height), Vector2.zero);
+    }
+    Texture2D LoadTexture(string FilePath)
+    {
+        Texture2D Tex2D;
+        byte[] FileData;
+
+        if (File.Exists(FilePath))
+        {
+            FileData = File.ReadAllBytes(FilePath);
+            Tex2D = new Texture2D(2, 2);
+            if (Tex2D.LoadImage(FileData))
+                return Tex2D;
+        }
+        return null;
     }
 }
 

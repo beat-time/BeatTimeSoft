@@ -27,12 +27,45 @@ EditorBuildSettings:
     path: Assets/Scenes/SelecThemes.unity
     guid: 7a27f610c683b9c41941f896bd6261d6
   - enabled: 1
-    path: Assets/Scenes/Playing.unity
+    path: Assets/Scenes/Playing6.unity
     guid: 507aa725b0b24c8448b4cf7a4418edda
   - enabled: 1
     path: Assets/Scenes/Score.unity
     guid: 02f5aa0d3e3f92f46a25072c76bb59ea
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Scenes/Score2.unity
+    guid: 49be42e408d7294478552edc684fac53
   - enabled: 1
     path: Assets/Scenes/Ranking.unity
-    guid: be0ba81863de3814e81ce6953f80e659
+    guid: ebf70615a7e245b47a1a33f0048ad16f
+  - enabled: 1
+    path: Assets/Scenes/Playing1.unity
+    guid: 275aaa3c14871c148b84636319aa54a7
+  - enabled: 1
+    path: Assets/Scenes/Playing8.unity
+    guid: 7514a1a6e4023c94fa2cfbf675d3f9e1
+  - enabled: 1
+    path: Assets/Scenes/Playing2.unity
+    guid: f4e7e2383ec04c74fa5622b5fa18112d
+  - enabled: 1
+    path: Assets/Scenes/Playing3.unity
+    guid: 3f67afcdf54fafd48ab7f726c73e312e
+  - enabled: 1
+    path: Assets/Scenes/Playing4.unity
+    guid: b638d953b0332df4d87bcf3ac4df9950
+  - enabled: 1
+    path: Assets/Scenes/Playing5.unity
+    guid: 6af9e4715df7f114c9ba2308eb965072
+  - enabled: 1
+    path: Assets/Scenes/Playing7.unity
+    guid: 8fcf03043e92c4e4ca66cd20dcc65dc9
+  - enabled: 1
+    path: Assets/Scenes/Playing9.unity
+    guid: 3819b050697dd7240b93ee2af05a0ef0
+  - enabled: 1
+    path: Assets/Scenes/Playing10.unity
+    guid: b40f9e4c6a3c1c24e821d8fba9dac021
   m_configObjects: {}

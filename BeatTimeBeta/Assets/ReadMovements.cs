@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class ReadMovements : MonoBehaviour
 {
+    int Scene = 1;
     Dictionary<int, List<Vector3>> positions = new Dictionary<int, List<Vector3>>();
     string[] data = null;
     string path = "";
@@ -20,9 +21,14 @@ public class ReadMovements : MonoBehaviour
 
     }
 
-    public Dictionary<int, List<Vector3>> LoadData()
+    public void setScene(int TempScene)
     {
-        path = Application.dataPath + "//data.txt";
+        Scene = TempScene;
+    }
+
+    public Dictionary<int, List<Vector3>> LoadData(int nScene)
+    {
+        path = Application.dataPath + "//data"+ nScene + ".txt";
         if (File.Exists(path))
         {
             data = File.ReadAllLines(path);

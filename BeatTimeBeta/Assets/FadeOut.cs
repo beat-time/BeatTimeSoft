@@ -5,18 +5,18 @@ using System.Collections;
 
 public class FadeOut : MonoBehaviour
 {
-    Text txt;
+    RawImage txt;
     Color txt_color;
     float time_fadeout = 1;
     // can ignore the update, it's just to make the coroutines get called for example
     void Start()
     {
-        txt = GetComponent<Text>();
+        txt = GetComponent<RawImage>();
         txt_color = txt.color;
     }
     void Update()
     {
-        if (txt.text != "")
+        if (txt.texture != null)
         {
             //StartCoroutine(FadeTextToZeroAlpha(1f, txt));
             if (txt.color.a > 0)
@@ -25,8 +25,9 @@ public class FadeOut : MonoBehaviour
             }
             else
             {
-                txt.text = "";
+                txt.texture = null;
                 txt.color = txt_color;
+                txt.gameObject.SetActive(false);
             }
         }
     }
@@ -49,7 +50,8 @@ public class FadeOut : MonoBehaviour
             i.color = new Color(i.color.r, i.color.g, i.color.b, i.color.a - (Time.deltaTime / t));
             yield return null;
         }
-        txt.text = "";
+        txt.texture = null;
         txt.color = txt_color;
+        txt.gameObject.SetActive(false);
     }
 }

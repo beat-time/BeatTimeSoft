@@ -27,7 +27,7 @@ public class ScoreController : MonoBehaviour
     Image photoWinner;
     int totalPointsWinner = 0;
 
-    int placePlayer = -1;
+    int placePlayer = 0;
     PhotoPlayerController photoPlayerController = new PhotoPlayerController();
     // Start is called before the first frame update
     private void Awake()
@@ -126,6 +126,8 @@ public class ScoreController : MonoBehaviour
     {
         string path = Application.dataPath + "//Resources//Ranking//";
 
+        bool esTop = false;
+
         if (File.Exists(path + "ranking.txt"))
         {
             List<string> data = File.ReadAllLines(path + "ranking.txt").ToList();
@@ -143,17 +145,19 @@ public class ScoreController : MonoBehaviour
                     points = int.Parse(data[a]);
                     if (menor > points)
                     {
-                        if (placePlayer != -1)
+                        if (placePlayer == 0)
                         {
                             placePlayer = a;
                         }
 
                         data[a] = menor.ToString();
-                        menor = points; ;
+                        menor = points; 
 
                         File.Move(path + "r" + a + ".png", path + "rank.png");
                         File.Move(auxPath, path + "r" + a + ".png");
                         File.Move(path + "rank.png", auxPath);
+                        esTop = true;
+
                     }
                 }
                 if (numberOfPlayers < 5)
@@ -164,7 +168,10 @@ public class ScoreController : MonoBehaviour
 
                     File.Move(auxPath, path + "r" + numberOfPlayers + ".png");
                 }
-
+                
+                
+                data[numberOfPlayers+1] = placePlayer.ToString();
+                
                 string[] d = data.ToArray();
                 File.WriteAllLines(path + "ranking.txt", d);
             }
@@ -181,10 +188,11 @@ public class ScoreController : MonoBehaviour
 
     void SaveFirstPlace()
     {
-        string[] d = { "1", totalPointsWinner.ToString() };
-        File.WriteAllLines(Application.dataPath + "Resources//Ranking//ranking.txt", d);
+        placePlayer = 1;
+        string[] d = { "1", totalPointsWinner.ToString(), placePlayer.ToString()};
+        File.WriteAllLines(Application.dataPath + "//Resources//Ranking//ranking.txt", d);
 
         byte[] bytes = photoWinner.sprite.texture.EncodeToPNG();
-        File.WriteAllBytes(Application.dataPath + "Resources//Ranking//r1.png", bytes);
+        File.WriteAllBytes(Application.dataPath + "//Resources//Ranking//r1.png", bytes);
     }
 }

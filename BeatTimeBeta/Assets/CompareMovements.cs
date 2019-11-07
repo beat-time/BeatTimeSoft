@@ -10,6 +10,15 @@ using Kinect = Windows.Kinect;
 
 public class CompareMovements : MonoBehaviour
 {
+    public RawImage Cali;
+    public RawImage Cali2;
+    public RawImage Exc;
+    public RawImage Buen;
+    public RawImage Regu;
+    public RawImage Mal;
+    public int TimeMusic = 1;
+    public int NPlayer = 0;
+    public int Scene = 1;
     Dictionary<int, List<Vector3>> positions = new Dictionary<int, List<Vector3>>();
     GameObject bodyObject1 = null;
     GameObject bodyObject2 = null;
@@ -60,20 +69,45 @@ public class CompareMovements : MonoBehaviour
 
     private PhotoPlayerController photoPlayerController = new PhotoPlayerController();
     bool secondPlayer = false;
+
+    public RawImage progressBar;
+    float progressBarWidth;
+
+    float totalPerfectPoints;
+
+    ProgressBar barPlayer1;
+    ProgressBar barPlayer2;
+    public RawImage rawImageBar1;
+    public RawImage rawImageBar2;
+
+    bool changeScene = false;
+    float timeChangeScene = 2;
     // Start is called before the first frame update
+    private void Awake()
+    {
+        Cali.gameObject.SetActive(false);
+        Cali2.gameObject.SetActive(false);
+    }
     void Start()
     {
+        txt_qualification1.text = "0";
+        txt_qualification2.text = "0";
         ReadMovements leerMovimientos = new ReadMovements();
-        positions = leerMovimientos.LoadData();
-        numberOfMovements = positions.Count / 28;
+        positions = leerMovimientos.LoadData(Scene);
+        
+        numberOfMovements = positions.Count / (TimeMusic/2);
         cont = numberOfMovements;
         maxTimeCompare = timeCompare;
-        movementsPerSecond = positions.Count / 56;
+        movementsPerSecond = positions.Count / TimeMusic;
 
         if (!photoPlayerController.getTurnPlayerOne())
         {
-            secondPlayer = true;
+            //secondPlayer = true;
         }
+        progressBarWidth = progressBar.rectTransform.rect.width;
+        totalPerfectPoints = 10 * 250;
+        barPlayer1 = rawImageBar1.GetComponent<ProgressBar>();
+        barPlayer2 = rawImageBar2.GetComponent<ProgressBar>();
         //LoadPhoto();
     }
 
@@ -101,7 +135,7 @@ public class CompareMovements : MonoBehaviour
 
                 //bodyObject1 = bodies._Bodies.Values.First();
             }
-            if (bodyObject2 == null && secondPlayer)
+            if (bodyObject2 == null && NPlayer==2)
             {
                 if (bodyObject1 != null)
                 {
@@ -118,7 +152,7 @@ public class CompareMovements : MonoBehaviour
                     }
                 }
             }
-            if (timeCompare <= 0)
+            if (timeCompare <= 0 && !changeScene)
             {
                 if (bodyObject1 != null || bodyObject2 != null)
                 {
@@ -126,7 +160,7 @@ public class CompareMovements : MonoBehaviour
                     {
                         JointsPlayer1 = GetJoints(bodyObject1);
                     }
-                    if(bodyObject2 != null && secondPlayer)
+                    if(bodyObject2 != null && NPlayer==2)
                     {
                         JointsPlayer2 = GetJoints(bodyObject2);
                     }
@@ -182,7 +216,7 @@ public class CompareMovements : MonoBehaviour
                                     auxPoints1 += 1;
                                 }
                             }
-                            if (bodyObject2 != null && secondPlayer)
+                            if (bodyObject2 != null && NPlayer==2)
                             {
                                 Player2 = JointsPlayer2[b];
                                 if (b == 0)
@@ -227,13 +261,44 @@ public class CompareMovements : MonoBehaviour
                         inicio += 2;
                     }
                 }
-                txt_qualification1.text = Calification(points1);
-                totalPoints1 += points1;
+                
+                txt_qualification1.text = totalPoints1.ToString();//Calification(points1);
 
-                if(secondPlayer)
+                Cali.texture = Calification(points1);
+
+                if (!Cali.isActiveAndEnabled)
                 {
-                    txt_qualification2.text = Calification(points2);
-                    totalPoints2 += points2;
+                    Cali.gameObject.SetActive(true);
+                }
+
+                if (!barPlayer1.move)
+                {
+                    totalPoints1 += 2 * points1;
+                }
+                else
+                {
+                    totalPoints1 += points1;
+                }
+                barPlayer1.progress += points1 * progressBarWidth / totalPerfectPoints;
+
+                if (NPlayer==2)
+                {
+                    txt_qualification2.text = totalPoints2.ToString();//Calification(points2);
+                    Cali2.texture = Calification(points2);
+
+                    if (!Cali2.isActiveAndEnabled)
+                    {
+                        Cali2.gameObject.SetActive(true);
+                    }
+                    if (!barPlayer2.move)
+                    {
+                        totalPoints2 += 2 * points2;
+                    }
+                    else
+                    {
+                        totalPoints2 += points2;
+                    }
+                    barPlayer2.progress += points2 * progressBarWidth / totalPerfectPoints;
                 }
 
                 cont += numberOfMovements;
@@ -241,37 +306,50 @@ public class CompareMovements : MonoBehaviour
                 points2 = 0;
                 if (cont > positions.Count)
                 {
-                    txt_qualification1.text = "";
-                    txt_qualification2.text = "";
-                    //SceneManager.LoadScene("Score");
-                    Initiate.Fade("Score", Color.black, 2.0f);
-                    enabled = false;
-                    //UnityEditor.EditorApplication.isPlaying = false;
+                    changeScene = true;
                 }
                 timeCompare = maxTimeCompare;
             }
             timeCompare -= Time.deltaTime;
+
+            if (changeScene)
+            {
+                if (timeChangeScene <= 0)
+                {
+                    txt_qualification1.text = "";
+                    txt_qualification2.text = "";
+                    if (NPlayer == 1)
+                    {
+                        Initiate.Fade("Score", Color.black, 2.0f);
+                    }
+                    else
+                    {
+                        Initiate.Fade("Score2", Color.black, 2.0f);
+                    }
+                    enabled = false;
+                }
+                timeChangeScene -= Time.deltaTime;
+            }
         }
     }
 
-    string Calification(int points)
+    Texture2D Calification(int points)
     {
-        if (points >= 190 && points <= 250)
+        if (points >= 210 && points <= 250)
         {
-            return "Excellent!!";
-
+            return Exc.texture as Texture2D;
         }
-        else if (points >= 180 && points < 190)
+        else if (points >= 190 && points < 210)
         {
-            return "Good!!";
+            return Buen.texture as Texture2D;
         }
-        else if (points >= 160 && points < 180)
+        else if (points >= 175 && points < 190)
         {
-            return "Regular";
+            return Regu.texture as Texture2D;
         }
         else
         {
-            return "Bad";
+            return Mal.texture as Texture2D;
         }
     }
 
