@@ -10,11 +10,14 @@ public class ChangeVideo : MonoBehaviour
     public KinectUICursor CursorRight;
     public KinectUICursor CursorLeft;
     public Button BtnStart;
+    public Button BtnNext;
+    public Button BtnBefore;
     public int contador = 1;
     int maxContador = 5;
 
     public RawImage imageL;
     public RawImage imageR;
+    public RawImage imageLetra;
 
     public RawImage imageCenter;
     
@@ -42,6 +45,18 @@ public class ChangeVideo : MonoBehaviour
     float btnPosX = 0.0f;
     float btnPosY = 0.0f;
 
+    float btnNextWidth = 0.0f;
+    float btnNextHeight = 0.0f;
+
+    float btnNextPosX = 0.0f;
+    float btnNextPosY = 0.0f;
+
+    float btnBeforeWidth = 0.0f;
+    float btnBeforeHeight = 0.0f;
+
+    float btnBeforePosX = 0.0f;
+    float btnBeforePosY = 0.0f;
+
     float timeTutorial = 10;
     public RawImage HandRightTutorial;
     public RawImage HandLeftTutorial;
@@ -67,6 +82,13 @@ public class ChangeVideo : MonoBehaviour
     public Text txt_song;
     public Text txt_singer;
     public Text txt_level;
+
+    bool isGreen11 = false;
+    bool isGreen12 = false;
+    bool isGreen21 = false;
+    bool isGreen22 = false;
+    bool isGreen31 = false;
+    bool isGreen32 = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -117,6 +139,16 @@ public class ChangeVideo : MonoBehaviour
         btnPosX = BtnStart.transform.position.x;
         btnPosY = BtnStart.transform.position.y;
 
+        btnNextWidth = BtnNext.GetComponent<RectTransform>().rect.width;
+        btnNextHeight = BtnNext.GetComponent<RectTransform>().rect.width;
+        btnNextPosX = BtnNext.transform.position.x;
+        btnNextPosY = BtnNext.transform.position.y;
+
+        btnBeforeWidth = BtnBefore.GetComponent<RectTransform>().rect.width;
+        btnBeforeHeight = BtnBefore.GetComponent<RectTransform>().rect.width;
+        btnBeforePosX = BtnBefore.transform.position.x;
+        btnBeforePosY = BtnBefore.transform.position.y;
+
         rectTransform = imageCenter.GetComponent<RectTransform>();
         ImageCenterWidth = rectTransform.rect.width;
         ImageCenterHeight = rectTransform.rect.height;
@@ -126,6 +158,8 @@ public class ChangeVideo : MonoBehaviour
     void Update()
     {
         Click_Start();
+        Click_Next();
+        Click_Before();
         Update_All();
 
         CancelTutorial();
@@ -248,6 +282,9 @@ public class ChangeVideo : MonoBehaviour
     {
         btnPosX = BtnStart.transform.position.x;
         btnPosY = BtnStart.transform.position.y;
+
+        btnNextPosX = BtnNext.transform.position.x;
+        btnNextPosY = BtnNext.transform.position.y;
     }
     public void Change_Next()
     {
@@ -298,114 +335,234 @@ public class ChangeVideo : MonoBehaviour
     }
     public void Click_Start()
     {
-        if (CursorRight.HandGreen || CursorLeft.HandGreen)
+        if (CursorRight.transform.position.x - crWidth / 2 >= btnPosX - btnWidth / 2 &&
+            CursorRight.transform.position.x + crWidth / 2 <= btnPosX + btnWidth / 2 &&
+            CursorRight.transform.position.y - crHeight / 2 >= btnPosY - btnHeight / 2 &&
+            CursorRight.transform.position.y + crHeight / 2 <= btnPosY + btnHeight / 2)
         {
-            if (CursorRight.transform.position.x - crWidth / 2 >= btnPosX - btnWidth / 2 &&
-                CursorRight.transform.position.x + crWidth / 2 <= btnPosX + btnWidth / 2 &&
-                CursorRight.transform.position.y - crHeight / 2 >= btnPosY - btnHeight / 2 &&
-                CursorRight.transform.position.y + crHeight / 2 <= btnPosY + btnHeight / 2)
+            if (CursorRight.HandGreen)
             {
-                if (NPlayer == 1)
-                {
-                    if (contador == 1)
-                    {
-                        SceneManager.LoadScene("Playing1");
-                    }
-                    else if (contador == 2)
-                    {
-                        SceneManager.LoadScene("Playing2");
-                    }
-                    else if (contador == 3)
-                    {
-                        SceneManager.LoadScene("Playing3");
-                    }
-                    else if (contador == 4)
-                    {
-                        SceneManager.LoadScene("Playing4");
-                    }
-                    else if (contador == 5)
-                    {
-                        SceneManager.LoadScene("Playing5");
-                    }
-                }
-                else
-                {
-                    if (contador == 1)
-                    {
-                        SceneManager.LoadScene("Playing6");
-                    }
-                    else if (contador == 2)
-                    {
-                        SceneManager.LoadScene("Playing7");
-                    }
-                    else if (contador == 3)
-                    {
-                        SceneManager.LoadScene("Playing8");
-                    }
-                    else if (contador == 4)
-                    {
-                        SceneManager.LoadScene("Playing9");
-                    }
-                    else if (contador == 5)
-                    {
-                        SceneManager.LoadScene("Playing10");
-                    }
-                }
-                
+                isGreen31 = true;
             }
-            else if (CursorLeft.transform.position.x - clWidth / 2 >= btnPosX - btnWidth / 2 &&
-                CursorLeft.transform.position.x + clWidth / 2 <= btnPosX + btnWidth / 2 &&
-                CursorLeft.transform.position.y - clHeight / 2 >= btnPosY - btnHeight / 2 &&
-                CursorLeft.transform.position.y + clHeight / 2 <= btnPosY + btnHeight / 2)
+            else
             {
-                if (NPlayer == 1)
+                if (isGreen31)
                 {
-                    if (contador == 1)
+                    if (NPlayer == 1)
                     {
-                        SceneManager.LoadScene("Playing1");
+                        if (contador == 1)
+                        {
+                            SceneManager.LoadScene("Playing1");
+                        }
+                        else if (contador == 2)
+                        {
+                            SceneManager.LoadScene("Playing2");
+                        }
+                        else if (contador == 3)
+                        {
+                            SceneManager.LoadScene("Playing3");
+                        }
+                        else if (contador == 4)
+                        {
+                            SceneManager.LoadScene("Playing4");
+                        }
+                        else if (contador == 5)
+                        {
+                            SceneManager.LoadScene("Playing5");
+                        }
                     }
-                    else if (contador == 2)
+                    else
                     {
-                        SceneManager.LoadScene("Playing2");
-                    }
-                    else if (contador == 3)
-                    {
-                        SceneManager.LoadScene("Playing3");
-                    }
-                    else if (contador == 4)
-                    {
-                        SceneManager.LoadScene("Playing4");
-                    }
-                    else if (contador == 5)
-                    {
-                        SceneManager.LoadScene("Playing5");
-                    }
-                }
-                else
-                {
-                    if (contador == 1)
-                    {
-                        SceneManager.LoadScene("Playing6");
-                    }
-                    else if (contador == 2)
-                    {
-                        SceneManager.LoadScene("Playing7");
-                    }
-                    else if (contador == 3)
-                    {
-                        SceneManager.LoadScene("Playing8");
-                    }
-                    else if (contador == 4)
-                    {
-                        SceneManager.LoadScene("Playing9");
-                    }
-                    else if (contador == 5)
-                    {
-                        SceneManager.LoadScene("Playing10");
+                        if (contador == 1)
+                        {
+                            SceneManager.LoadScene("Playing6");
+                        }
+                        else if (contador == 2)
+                        {
+                            SceneManager.LoadScene("Playing7");
+                        }
+                        else if (contador == 3)
+                        {
+                            SceneManager.LoadScene("Playing8");
+                        }
+                        else if (contador == 4)
+                        {
+                            SceneManager.LoadScene("Playing9");
+                        }
+                        else if (contador == 5)
+                        {
+                            SceneManager.LoadScene("Playing10");
+                        }
                     }
                 }
             }
         }
+        else {
+            isGreen31 = false;
+        }
+        if (CursorLeft.transform.position.x - clWidth / 2 >= btnPosX - btnWidth / 2 &&
+            CursorLeft.transform.position.x + clWidth / 2 <= btnPosX + btnWidth / 2 &&
+            CursorLeft.transform.position.y - clHeight / 2 >= btnPosY - btnHeight / 2 &&
+            CursorLeft.transform.position.y + clHeight / 2 <= btnPosY + btnHeight / 2)
+        {
+            if (CursorLeft.HandGreen)
+            {
+                isGreen32 = true;
+            }
+            else
+            {
+                if (isGreen32)
+                {
+                    if (NPlayer == 1)
+                    {
+                        if (contador == 1)
+                        {
+                            SceneManager.LoadScene("Playing1");
+                        }
+                        else if (contador == 2)
+                        {
+                            SceneManager.LoadScene("Playing2");
+                        }
+                        else if (contador == 3)
+                        {
+                            SceneManager.LoadScene("Playing3");
+                        }
+                        else if (contador == 4)
+                        {
+                            SceneManager.LoadScene("Playing4");
+                        }
+                        else if (contador == 5)
+                        {
+                            SceneManager.LoadScene("Playing5");
+                        }
+                    }
+                    else
+                    {
+                        if (contador == 1)
+                        {
+                            SceneManager.LoadScene("Playing6");
+                        }
+                        else if (contador == 2)
+                        {
+                            SceneManager.LoadScene("Playing7");
+                        }
+                        else if (contador == 3)
+                        {
+                            SceneManager.LoadScene("Playing8");
+                        }
+                        else if (contador == 4)
+                        {
+                            SceneManager.LoadScene("Playing9");
+                        }
+                        else if (contador == 5)
+                        {
+                            SceneManager.LoadScene("Playing10");
+                        }
+                    }
+                }
+            }
+        }
+        else {
+            isGreen32 = false;
+        }
+        
+    }
+    public void Click_Next()
+    {
+
+        if (CursorRight.transform.position.x - crWidth / 2 >= btnNextPosX - btnNextWidth / 2 &&
+            CursorRight.transform.position.x + crWidth / 2 <= btnNextPosX + btnNextWidth / 2 &&
+            CursorRight.transform.position.y - crHeight / 2 >= btnNextPosY - btnNextHeight / 2 &&
+            CursorRight.transform.position.y + crHeight / 2 <= btnNextPosY + btnNextHeight / 2)
+        {
+            if (CursorRight.HandGreen)
+            {
+                isGreen21 = true;
+            }
+            else {
+                if (isGreen21)
+                {
+                    Change_Next();
+                    isGreen21 = false;
+                }
+            }
+        }
+        else
+        {
+            isGreen21 = false;
+        }
+        if (CursorLeft.transform.position.x - clWidth / 2 >= btnNextPosX - btnNextWidth / 2 &&
+            CursorLeft.transform.position.x + clWidth / 2 <= btnNextPosX + btnNextWidth / 2 &&
+            CursorLeft.transform.position.y - clHeight / 2 >= btnNextPosY - btnNextHeight / 2 &&
+            CursorLeft.transform.position.y + clHeight / 2 <= btnNextPosY + btnNextHeight / 2)
+        {
+            if (CursorLeft.HandGreen)
+            {
+                isGreen22 = true;
+            }
+            else
+            {
+                if (isGreen22)
+                {
+                    Change_Next();
+                    isGreen22 = false;
+                }
+            }
+        }
+        else
+        {
+            isGreen22 = false;
+        }
+
+    }
+    public void Click_Before()
+    {
+        
+        if (CursorRight.transform.position.x - crWidth / 2 >= btnBeforePosX - btnBeforeWidth / 2 &&
+            CursorRight.transform.position.x + crWidth / 2 <= btnBeforePosX + btnBeforeWidth / 2 &&
+            CursorRight.transform.position.y - crHeight / 2 >= btnBeforePosY - btnBeforeHeight / 2 &&
+            CursorRight.transform.position.y + crHeight / 2 <= btnBeforePosY + btnBeforeHeight / 2)
+        {
+            if (CursorRight.HandGreen)
+            {
+                isGreen11 = true;
+            }
+            else
+            {
+                if (isGreen11)
+                {
+                    Change_Before();
+                    isGreen11 = false;
+                }
+            }
+        }
+        else
+        {
+            isGreen11 = false;
+        }
+        if (CursorLeft.transform.position.x - clWidth / 2 >= btnBeforePosX - btnBeforeWidth / 2 &&
+            CursorLeft.transform.position.x + clWidth / 2 <= btnBeforePosX + btnBeforeWidth / 2 &&
+            CursorLeft.transform.position.y - clHeight / 2 >= btnBeforePosY - btnBeforeHeight / 2 &&
+            CursorLeft.transform.position.y + clHeight / 2 <= btnBeforePosY + btnBeforeHeight / 2)
+        {
+            if (CursorLeft.HandGreen)
+            {
+                isGreen12 = true;
+            }
+            else
+            {
+                if (isGreen12)
+                {
+                    Change_Next();
+                    isGreen12 = false;
+                }
+            }
+        }
+        else
+        {
+            isGreen12 = false;
+        }
+
     }
     public void Change()
     {
@@ -492,11 +649,13 @@ public class ChangeVideo : MonoBehaviour
         {
             imageR.texture = LoadRawImage(right + ".png");
             imageL.texture = LoadRawImage(left + ".png");
+            imageLetra.texture = LoadRawImage("letra" + numberImageCenter + ".png");
         }
         else
         {
             imageR.texture = LoadRawImage((right + maxContador) + ".png");
             imageL.texture = LoadRawImage((left + maxContador) + ".png");
+            imageLetra.texture = LoadRawImage("letra" + (numberImageCenter + maxContador) + ".png");
         }
     }
 

@@ -2767,7 +2767,7 @@ MonoBehaviour:
   Buen: {fileID: 1651840509}
   Regu: {fileID: 1140190338}
   Mal: {fileID: 1561587009}
-  TimeMusic: 210
+  TimeMusic: 208
   NPlayer: 1
   Scene: 3
   bodies: {fileID: 811136549}

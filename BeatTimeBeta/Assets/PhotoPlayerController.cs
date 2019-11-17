@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class PhotoPlayerController : MonoBehaviour
 {
-    public static int NPlayer = 0;
+    public static int NPlayer = 1;
     public Text Txt_Player;
     public static bool turnPlayerOne = false;
     public static bool turnPlayerTwo = false;

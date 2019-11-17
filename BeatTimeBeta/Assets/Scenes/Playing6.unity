@@ -3809,9 +3809,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camino: {fileID: 83385893}
-  pose1: {fileID: 1885118607}
-  pose2: {fileID: 639253000}
-  pose3: {fileID: 56943600}
+  poseTemplate: {fileID: 1885118607}
 --- !u!114 &1096718337
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -13,6 +13,9 @@ public class PhotoController : MonoBehaviour
     public RawImage rawImageSnip;
     //public Text txt_time_controller;
     PhotoPlayerController photoPlayerController;
+
+    public Canvas canvasFlash;
+    bool activateFlash = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,22 +29,31 @@ public class PhotoController : MonoBehaviour
     {
         time -= Time.deltaTime;
         //txt_time_controller.text = time.ToString("f0");
-        if (time <= 0)
+        if (time <= 5)
         {
-            Texture2D photoTexture = rawImage.texture as Texture2D;
-            photoTexture = SnipTexture(photoTexture, rawImage, rawImageSnip);
-            photoTexture = Rotation180(photoTexture);
-            byte[] bytes = photoTexture.EncodeToPNG();
-            string path = Application.dataPath + "//Resources//"; //"Assets\\Resources\\Images\\";
-            if (photoPlayerController.getTurnPlayerOne())
+            if (activateFlash)
             {
-                File.WriteAllBytes(path + "photo1" + ".png", bytes);
+                Texture2D photoTexture = rawImage.texture as Texture2D;
+                photoTexture = SnipTexture(photoTexture, rawImage, rawImageSnip);
+                photoTexture = Rotation180(photoTexture);
+                byte[] bytes = photoTexture.EncodeToPNG();
+                string path = Application.dataPath + "//Resources//"; //"Assets\\Resources\\Images\\";
+                if (photoPlayerController.getTurnPlayerOne())
+                {
+                    File.WriteAllBytes(path + "photo1" + ".png", bytes);
+                }
+                else
+                {
+                    File.WriteAllBytes(path + "photo2" + ".png", bytes);
+                }
+                canvasFlash.GetComponent<FlashBang>().MineHit();
+                activateFlash = false;
             }
-            else
+
+            if (canvasFlash.GetComponent<FlashBang>().makeFlash)
             {
-                File.WriteAllBytes(path + "photo2" + ".png", bytes);
+                SceneManager.LoadScene("MyPhoto2");
             }
-            SceneManager.LoadScene("MyPhoto2");
         }
     }
     public Texture2D Rotation180(Texture2D texture)

@@ -3490,7 +3490,7 @@ MonoBehaviour:
   Buen: {fileID: 1143332682}
   Regu: {fileID: 1443860544}
   Mal: {fileID: 1558485876}
-  TimeMusic: 255
+  TimeMusic: 251
   NPlayer: 1
   Scene: 4
   bodies: {fileID: 811136549}
@@ -4839,7 +4839,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1606257224}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36798d0057eb5d94488533f3252f03da, type: 3}
+  m_Script: {fileID: 11500000, guid: 13d9180c87267d04794ca59832abe07b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   audio: {fileID: 1102887093}

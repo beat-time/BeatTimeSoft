@@ -35,9 +35,21 @@ public class ThreeButtonController : MonoBehaviour
     float btnCPPosX = 0.0f;
     float btnCPPosY = 0.0f;
 
+    bool isGreen11 = false;
+    bool isGreen12 = false;
+    bool isGreen21 = false;
+    bool isGreen22 = false;
+    bool isGreen31 = false;
+    bool isGreen32 = false;
+
+    CompareMovements compareMovements = new CompareMovements();
+
+
     // Start is called before the first frame update
     void Start()
     {
+        //ScoreController scoreController = new ScoreController();
+        
         crHeight = CursorRight.GetComponent<RectTransform>().rect.height;
         crWidth = CursorRight.GetComponent<RectTransform>().rect.width;
         clHeight = CursorLeft.GetComponent<RectTransform>().rect.height;
@@ -83,65 +95,141 @@ public class ThreeButtonController : MonoBehaviour
 
     public void Click_RepeatDance()
     {
-        if (CursorRight.HandGreen || CursorLeft.HandGreen)
+
+        if (CursorRight.transform.position.x - crWidth / 2 >= btnRDPosX - btnRDWidth / 2 &&
+            CursorRight.transform.position.x + crWidth / 2 <= btnRDPosX + btnRDWidth / 2 &&
+            CursorRight.transform.position.y - crHeight / 2 >= btnRDPosY - btnRDHeight / 2 &&
+            CursorRight.transform.position.y + crHeight / 2 <= btnRDPosY + btnRDHeight / 2)
         {
-            if (CursorRight.transform.position.x - crWidth / 2 >= btnRDPosX - btnRDWidth / 2 &&
-                CursorRight.transform.position.x + crWidth / 2 <= btnRDPosX + btnRDWidth / 2 &&
-                CursorRight.transform.position.y - crHeight / 2 >= btnRDPosY - btnRDHeight / 2 &&
-                CursorRight.transform.position.y + crHeight / 2 <= btnRDPosY + btnRDHeight / 2)
+            if (CursorRight.HandGreen)
             {
-                SceneManager.LoadScene("Playing");
+                isGreen11 = true;
             }
-            else if (CursorLeft.transform.position.x - clWidth / 2 >= btnRDPosX - btnRDWidth / 2 &&
-                CursorLeft.transform.position.x + clWidth / 2 <= btnRDPosX + btnRDWidth / 2 &&
-                CursorLeft.transform.position.y - clHeight / 2 >= btnRDPosY - btnRDHeight / 2 &&
-                CursorLeft.transform.position.y + clHeight / 2 <= btnRDPosY + btnRDHeight / 2)
+            else
             {
-                SceneManager.LoadScene("Playing");
+                if (isGreen11)
+                {
+                    SceneManager.LoadScene("Playing" + compareMovements.getScene());
+                }
+            }          
+        }
+        else
+        {
+            isGreen11 = false;
+        }
+        if (CursorLeft.transform.position.x - clWidth / 2 >= btnRDPosX - btnRDWidth / 2 &&
+            CursorLeft.transform.position.x + clWidth / 2 <= btnRDPosX + btnRDWidth / 2 &&
+            CursorLeft.transform.position.y - clHeight / 2 >= btnRDPosY - btnRDHeight / 2 &&
+            CursorLeft.transform.position.y + clHeight / 2 <= btnRDPosY + btnRDHeight / 2)
+        {
+            if (CursorLeft.HandGreen)
+            {
+                isGreen12 = true;
+            }
+            else
+            {
+                if (isGreen12)
+                {
+                    SceneManager.LoadScene("Playing" + compareMovements.getScene());
+                }
             }
         }
+        else {
+            isGreen12 = false;
+        }
+        
     }
 
     public void Click_ChooseAnotherSong()
     {
-        if (CursorRight.HandGreen || CursorLeft.HandGreen)
+
+        if (CursorRight.transform.position.x - crWidth / 2 >= btnCSPosX - btnCSWidth / 2 &&
+            CursorRight.transform.position.x + crWidth / 2 <= btnCSPosX + btnCSWidth / 2 &&
+            CursorRight.transform.position.y - crHeight / 2 >= btnCSPosY - btnCSHeight / 2 &&
+            CursorRight.transform.position.y + crHeight / 2 <= btnCSPosY + btnCSHeight / 2)
         {
-            if (CursorRight.transform.position.x - crWidth / 2 >= btnCSPosX - btnCSWidth / 2 &&
-                CursorRight.transform.position.x + crWidth / 2 <= btnCSPosX + btnCSWidth / 2 &&
-                CursorRight.transform.position.y - crHeight / 2 >= btnCSPosY - btnCSHeight / 2 &&
-                CursorRight.transform.position.y + crHeight / 2 <= btnCSPosY + btnCSHeight / 2)
+            if (CursorRight.HandGreen)
             {
-                SceneManager.LoadScene("SelecThemes");
+                isGreen21 = true;
             }
-            else if (CursorLeft.transform.position.x - clWidth / 2 >= btnCSPosX - btnCSWidth / 2 &&
-                CursorLeft.transform.position.x + clWidth / 2 <= btnCSPosX + btnCSWidth / 2 &&
-                CursorLeft.transform.position.y - clHeight / 2 >= btnCSPosY - btnCSHeight / 2 &&
-                CursorLeft.transform.position.y + clHeight / 2 <= btnCSPosY + btnCSHeight / 2)
+            else
             {
-                SceneManager.LoadScene("SelecThemes");
+                if (isGreen21)
+                {
+                    SceneManager.LoadScene("SelecThemes");
+                }
             }
         }
+        else {
+            isGreen21 = false;
+        }
+        if (CursorLeft.transform.position.x - clWidth / 2 >= btnCSPosX - btnCSWidth / 2 &&
+            CursorLeft.transform.position.x + clWidth / 2 <= btnCSPosX + btnCSWidth / 2 &&
+            CursorLeft.transform.position.y - clHeight / 2 >= btnCSPosY - btnCSHeight / 2 &&
+            CursorLeft.transform.position.y + clHeight / 2 <= btnCSPosY + btnCSHeight / 2)
+        {
+            if (CursorLeft.HandGreen)
+            {
+                isGreen22 = true;
+            }
+            else
+            {
+                if (isGreen22)
+                {
+                    SceneManager.LoadScene("SelecThemes");
+                }
+            }
+        }
+        else {
+            isGreen22 = false;
+        }
+        
     }
 
     public void Click_ChangePLayers()
     {
-        if (CursorRight.HandGreen || CursorLeft.HandGreen)
+
+        if (CursorRight.transform.position.x - crWidth / 2 >= btnCPPosX - btnCSWidth / 2 &&
+            CursorRight.transform.position.x + crWidth / 2 <= btnCPPosX + btnCSWidth / 2 &&
+            CursorRight.transform.position.y - crHeight / 2 >= btnCPPosY - btnCSHeight / 2 &&
+            CursorRight.transform.position.y + crHeight / 2 <= btnCPPosY + btnCSHeight / 2)
         {
-            if (CursorRight.transform.position.x - crWidth / 2 >= btnCPPosX - btnCSWidth / 2 &&
-                CursorRight.transform.position.x + crWidth / 2 <= btnCPPosX + btnCSWidth / 2 &&
-                CursorRight.transform.position.y - crHeight / 2 >= btnCPPosY - btnCSHeight / 2 &&
-                CursorRight.transform.position.y + crHeight / 2 <= btnCPPosY + btnCSHeight / 2)
+            if (CursorRight.HandGreen)
             {
-                SceneManager.LoadScene("SelecPlayers");
+                isGreen31 = true;
             }
-            else if (CursorLeft.transform.position.x - clWidth / 2 >= btnCPPosX - btnCPWidth / 2 &&
-                CursorLeft.transform.position.x + clWidth / 2 <= btnCPPosX + btnCPWidth / 2 &&
-                CursorLeft.transform.position.y - clHeight / 2 >= btnCPPosY - btnCPHeight / 2 &&
-                CursorLeft.transform.position.y + clHeight / 2 <= btnCPPosY + btnCPHeight / 2)
+            else
             {
-                SceneManager.LoadScene("SelecPlayers");
+                if (isGreen31)
+                {
+                    SceneManager.LoadScene("SelecPlayers");
+                }
             }
         }
+        else {
+            isGreen31 = false;
+        }
+        if (CursorLeft.transform.position.x - clWidth / 2 >= btnCPPosX - btnCPWidth / 2 &&
+            CursorLeft.transform.position.x + clWidth / 2 <= btnCPPosX + btnCPWidth / 2 &&
+            CursorLeft.transform.position.y - clHeight / 2 >= btnCPPosY - btnCPHeight / 2 &&
+            CursorLeft.transform.position.y + clHeight / 2 <= btnCPPosY + btnCPHeight / 2)
+        {
+            if (CursorLeft.HandGreen)
+            {
+                isGreen32 = true;
+            }
+            else
+            {
+                if (isGreen32)
+                {
+                    SceneManager.LoadScene("SelecPlayers");
+                }
+            }
+        }
+        else {
+            isGreen32 = false;
+        }
+        
     }
 }
 

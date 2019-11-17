@@ -10,6 +10,9 @@ public class SelectSongChance : MonoBehaviour
     public Button btnok;
     public Button btnBack;
     PhotoPlayerController photoPlayerController;
+
+    bool isGreen1 = false;
+    bool isGreen2 = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,35 +26,58 @@ public class SelectSongChance : MonoBehaviour
         {
             ChangeScene();
         }
+        else
+        {
+            isGreen1 = false;
+        }
 
         if (CursorRigth.transform.position.x > btnBack.transform.position.x - 50 && CursorRigth.transform.position.x < btnBack.transform.position.x + 50 && CursorRigth.transform.position.y > btnBack.transform.position.y - 50 && CursorRigth.transform.position.y < btnBack.transform.position.y + 50)
         {
             ChangeBack();
         }
+        else
+        {
+            isGreen2 = false;
+        }
     }
 
     public void ChangeScene()
     {
-        if (CursorRigth.HandGreen == true)
-        {
-            if (photoPlayerController.ChangeToThemes())
+        
+            if (CursorRigth.HandGreen == true)
             {
-                SceneManager.LoadScene("SelecThemes");
+                isGreen1 = true;
             }
             else
             {
-                photoPlayerController.ChangeTurn();
-                SceneManager.LoadScene("MyPhoto");
+                if (isGreen1)
+                {
+                    if (photoPlayerController.ChangeToThemes())
+                    {
+                        SceneManager.LoadScene("SelecThemes");
+                    }
+                    else
+                    {
+                        photoPlayerController.ChangeTurn();
+                        SceneManager.LoadScene("MyPhoto");
+                    }
+                }
             }
             //contPlayers.Players = 1;
-        }
+        
     }
     public void ChangeBack()
     {
         if (CursorRigth.HandGreen == true)
         {
-            SceneManager.LoadScene("MyPhoto");
-            //contPlayers.Players = 1;
+            isGreen2 = true;
+        }
+        else
+        {
+            if (isGreen2)
+            {
+                SceneManager.LoadScene("MyPhoto");
+            }
         }
     }
 }

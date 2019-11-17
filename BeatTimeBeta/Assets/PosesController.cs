@@ -8,121 +8,85 @@ using UnityEngine.UI;
 public class PosesController : MonoBehaviour
 {
     public RawImage camino;
-    public RawImage pose1;
-    public RawImage pose2;
-    public RawImage pose3;
+    public RawImage poseTemplate;
 
-    int contadorPoses = 1;
-    Vector3 startPosition1;
-    Vector3 target1;
-    Vector3 startPosition2;
-    Vector3 target2;
-    Vector3 startPosition3;
-    Vector3 target3;
-    float timeToReachTarget;
-    float t = 0;
     int contador = 1;
 
     List<Pose> posesData = new List<Pose>();
-    Pose objPose = null;
-    int numImages = 0;
+
+    float generalAT = 0;
+    bool nextPose = true;
+    int totalPoses = 0;
+
+    Vector3 startPosition;
+    Vector3 target;
+    List<int> numberPoses = new List<int>();
+    List<float> timeTargets = new List<float>();
+    List<float> durations = new List<float>();
     // Start is called before the first frame update
     void Start()
     {
         LoadDataPoses();
-        pose1.transform.localPosition = Vector3.zero;
-        pose1.gameObject.SetActive(true);
-        ChangePose(1);
+        totalPoses = posesData.Count - 1;
+        startPosition = Vector3.zero;
+        target = new Vector3(startPosition.x - (camino.rectTransform.rect.width - poseTemplate.rectTransform.rect.width) / 2, 0, 0);
+    }
+
+    void CreateRawImagePose(int numberOfPose, int index)
+    {
+        RawImage riPose = Instantiate(poseTemplate);
+        riPose.name = "pose" + index;
+        riPose.transform.SetParent(camino.transform, false);
+        riPose.transform.localPosition = Vector3.zero;
+        riPose.texture = LoadImagePose(numberOfPose + ".png");
+        riPose.gameObject.SetActive(true);
+    }
+
+    void MovePoses()
+    {
+        for (int a = 0; a < numberPoses.Count; a++)
+        {
+            int np = numberPoses[a];
+            float t = timeTargets[a];
+            t += Time.deltaTime / durations[a];
+            timeTargets[a] = t;
+            GameObject.Find("pose" + np).transform.localPosition = Vector3.Lerp(startPosition, target, t);
+            if (t >= 1)
+            {
+                Destroy(GameObject.Find("pose" + numberPoses[a]));
+                numberPoses.RemoveAt(a);
+                timeTargets.RemoveAt(a);
+                durations.RemoveAt(a);
+                a--;
+            }
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        t += Time.deltaTime / timeToReachTarget;
-
-        //startPosition = Vector3.zero;
-        //target = new Vector3(startPosition.x - (camino.rectTransform.rect.width - pose1.rectTransform.rect.width) / 2, 0, 0);
-        //pose1.transform.localPosition = Vector3.Lerp(startPosition, target, t);
-        for (int a = 1; a <= numImages; a++)
+        if (contador <= totalPoses)
         {
-            if (a == 1)
+            if (nextPose)
             {
-                pose1.transform.localPosition = Vector3.Lerp(startPosition1, target1, t);
+                generalAT = posesData[contador].appearingTime;
+                nextPose = false;
             }
-            else if (a == 2)
+            generalAT -= Time.deltaTime;
+            if (generalAT <= 0)
             {
-                pose2.transform.localPosition = Vector3.Lerp(startPosition2, target2, t);
-            }
-            else
-            {
-                pose3.transform.localPosition = Vector3.Lerp(startPosition3, target3, t);
+                CreateRawImagePose(posesData[contador].pose, contador);
+                numberPoses.Add(contador);
+                timeTargets.Add(0);
+                durations.Add(posesData[contador].duration);
+                nextPose = true;
+                contador++;
             }
         }
-        if (t >= 1)
-        {
-            contador++;
-            if (contador > posesData.Count - 1)
-            {
-                PosesSetActive(false);
-            }
-            else
-            {
-                ChangePose(contador);
-            }
-        }
+        MovePoses();
     }
 
-    void ChangePose(int number)
-    {
-        pose1.transform.localPosition = Vector3.zero;
-        pose2.transform.localPosition = Vector3.zero;
-        pose3.transform.localPosition = Vector3.zero;
-        PosesSetActive(false);
-        objPose = posesData[number];
-        numImages = objPose.poses.Count;
-        for(int a = 1; a <= numImages; a++)
-        {
-            float width = pose1.rectTransform.rect.width;
-            float widthCamino = camino.rectTransform.rect.width;
-            if (a == 1)
-            {
-                pose1.gameObject.SetActive(true);
-                startPosition1 = new Vector3(pose1.transform.localPosition.x - (numImages - a) * width, 0, 0);
-                target1 = new Vector3(0 - (widthCamino - width) / 2, 0, 0);
-                pose1.transform.localPosition = startPosition1;
-                pose1.texture = LoadPose(objPose.poses[a - 1] + ".png");
-            }
-            else if (a == 2)
-            {
-                pose2.gameObject.SetActive(true);
-                startPosition2 = new Vector3(pose2.transform.localPosition.x - (numImages - a) * width, 0, 0);
-                target2 = new Vector3(0 - (widthCamino - 3 * width) / 2, 0, 0);
-                pose2.transform.localPosition = startPosition2;
-                pose2.texture = LoadPose(objPose.poses[a - 1] + ".png");
-            }
-            else
-            {
-                pose3.gameObject.SetActive(true);
-                startPosition3 = new Vector3(pose3.transform.localPosition.x - (numImages - a) * width, 0, 0);
-                target3 = new Vector3(0 - (widthCamino - 5 * width) / 2, 0, 0);
-                pose3.transform.localPosition = startPosition3;
-                pose3.texture = LoadPose(objPose.poses[a - 1] + ".png");
-            }
-        }
-        
-        //pose1.transform.localPosition = Vector3.zero;
-        //pose1.texture = LoadPose(number + ".png");
-        timeToReachTarget = posesData[number].seconds;
-        t = 0;
-    }
-
-    void PosesSetActive(bool active)
-    {
-        pose1.gameObject.SetActive(active);
-        pose2.gameObject.SetActive(active);
-        pose3.gameObject.SetActive(active);
-    }
-    Texture2D LoadPose(string number)
+    Texture2D LoadImagePose(string number)
     {
         Texture2D spriteTexture = null;
         string path = Application.dataPath + "//Resources//Poses//Song1//";
@@ -153,33 +117,30 @@ public class PosesController : MonoBehaviour
 
     void LoadDataPoses()
     {
-        string[] data = File.ReadAllLines(Application.dataPath + "//Resources//Poses//Song1//data.txt");
+        string[] data = File.ReadAllLines(Application.dataPath + "//Resources//Poses//Song1//pose.txt");
         int numberOfPoses = int.Parse(data[0]);
         posesData.Add(null);
-        for(int a = 1; a <= numberOfPoses; a++)
+        for (int a = 1; a <= numberOfPoses; a++)
         {
             string[] row = data[a].Split(char.Parse("\t"));
-            int temp = int.Parse(row[0]);
-            float s = 0;
-            List<int> p = new List<int>();
-            for(int b = 1; b <= temp; b++)
-            {
-                p.Add(int.Parse(row[b]));
-            }
-            s = float.Parse(row[temp + 1], System.Globalization.CultureInfo.InvariantCulture);
-            posesData.Add(new Pose(p, s));
+            float appear = float.Parse(row[0], System.Globalization.CultureInfo.InvariantCulture); //appearingTime
+            float dur = float.Parse(row[1], System.Globalization.CultureInfo.InvariantCulture); //duration
+            int p = int.Parse(row[2]); //pose           
+            posesData.Add(new Pose(p, appear, dur));
         }
     }
 }
 
 public class Pose
 {
-    public List<int> poses;
-    public float seconds;
+    public int pose;
+    public float appearingTime; //seconds
+    public float duration; //seconds
 
-    public Pose(List<int> p, float s)
+    public Pose(int p, float at, float d)
     {
-        poses = p;
-        seconds = s;
+        pose = p;
+        appearingTime = at;
+        duration = d;
     }
 }

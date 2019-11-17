@@ -304,7 +304,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 90.100006, y: -47.600006}
+  m_AnchoredPosition: {x: 90.10002, y: -47.600006}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &23240285
@@ -321,6 +321,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CoordinateMapperManager: {fileID: 1031479424}
   idPlayer: 2
+  bodySourceView: {fileID: 1955779720}
 --- !u!33 &23240286
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -2480,7 +2481,7 @@ PrefabInstance:
     - target: {fileID: 5085495308675027189, guid: 9e4b83ba29aefe44096eb25a520a64f6,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5085495308675027193, guid: 9e4b83ba29aefe44096eb25a520a64f6,
         type: 3}
@@ -2607,6 +2608,11 @@ PrefabInstance:
       propertyPath: idPlayer
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5085495310293304667, guid: 9e4b83ba29aefe44096eb25a520a64f6,
+        type: 3}
+      propertyPath: bodySourceView
+      value: 
+      objectReference: {fileID: 1955779720}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9e4b83ba29aefe44096eb25a520a64f6, type: 3}
 --- !u!224 &1031479423 stripped
@@ -3066,6 +3072,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CoordinateMapperManager: {fileID: 2100904990}
   idPlayer: 0
+  bodySourceView: {fileID: 1955779720}
 --- !u!23 &1231989242
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3785,7 +3792,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 12345
+  m_Text: 434226
 --- !u!222 &1670542438
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4660,6 +4667,31 @@ PrefabInstance:
       propertyPath: Winner2
       value: 
       objectReference: {fileID: 1156511222}
+    - target: {fileID: 223010818511649225, guid: 2864a17e1e1862e4eaa02cfd31e8c640,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 223010818511649225, guid: 2864a17e1e1862e4eaa02cfd31e8c640,
+        type: 3}
+      propertyPath: bodySourceView
+      value: 
+      objectReference: {fileID: 1955779720}
+    - target: {fileID: 223010818511649225, guid: 2864a17e1e1862e4eaa02cfd31e8c640,
+        type: 3}
+      propertyPath: time
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 223010818511649225, guid: 2864a17e1e1862e4eaa02cfd31e8c640,
+        type: 3}
+      propertyPath: canvasAlert
+      value: 
+      objectReference: {fileID: 931104609}
+    - target: {fileID: 223010818511649225, guid: 2864a17e1e1862e4eaa02cfd31e8c640,
+        type: 3}
+      propertyPath: txt_number
+      value: 
+      objectReference: {fileID: 827888246}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2864a17e1e1862e4eaa02cfd31e8c640, type: 3}
 --- !u!1 &9099837571776657659 stripped

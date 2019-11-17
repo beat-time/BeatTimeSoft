@@ -80,8 +80,8 @@ public class CoordinateMapperView : MonoBehaviour
             {
                 if (bodySourceView._Bodies.Count >= 2)
                 {
-                    bodyPlayer1 = bodySourceView._Bodies.Values.ElementAt(1);
-                    trackingIdPlayer1 = bodySourceView._Bodies.Keys.ElementAt(1);
+                    bodyPlayer1 = bodySourceView._Bodies.Values.ElementAt(0);
+                    trackingIdPlayer1 = bodySourceView._Bodies.Keys.ElementAt(0);
                 }
             }
             else
@@ -104,16 +104,22 @@ public class CoordinateMapperView : MonoBehaviour
                     bodyPlayer2 = bodySourceView._Bodies.Values.ElementAt(1);
                     trackingIdPlayer2 = bodySourceView._Bodies.Keys.ElementAt(1);
                 }
+                if (trackingIdPlayer1 == trackingIdPlayer2 && trackingIdPlayer1 > 0 && trackingIdPlayer2 > 0)
+                {
+                    bodyPlayer1 = bodySourceView._Bodies.Values.ElementAt(0);
+                    trackingIdPlayer1 = bodySourceView._Bodies.Keys.ElementAt(0);
+                }
             }
             else
             {
                 if (bodySourceView._Bodies.Count >= 1)
                 {
-                    bodyPlayer2 = bodySourceView._Bodies.Values.ElementAt(0);
-                    trackingIdPlayer2 = bodySourceView._Bodies.Keys.ElementAt(0);
+                    bodyPlayer2 = bodySourceView._Bodies.Values.ElementAt(1);
+                    trackingIdPlayer2 = bodySourceView._Bodies.Keys.ElementAt(1);
                 }
             }
         }
+
 
         depthBuffer.SetData(depthPoints);
         // ComputeBuffers do not accept bytes, so we need to convert to float.
@@ -128,21 +134,18 @@ public class CoordinateMapperView : MonoBehaviour
             {
                 if (temp < 255)
                 {
-                    if (tempPlayer1 == -1)
+                    if (bodies != null)
                     {
-                        if (bodies != null)
+                        if (bodies[(int)temp].TrackingId == trackingIdPlayer1 && trackingIdPlayer1 != 0)
                         {
-                            if (bodies[(int)temp].TrackingId == trackingIdPlayer1 && trackingIdPlayer1 != 0)
-                            {
-                                tempPlayer1 = temp;
-                            }
-                            else
-                            {
-                                temp = 255;
-                            }
+                            tempPlayer1 = temp;
+                        }
+                        else
+                        {
+                            temp = 255;
                         }
                     }
-                    else if (temp != tempPlayer1)
+                    else
                     {
                         temp = 255;
                     }
@@ -152,54 +155,23 @@ public class CoordinateMapperView : MonoBehaviour
             {
                 if (temp < 255)
                 {
-                    if (tempPlayer2 == -1)
+                    if (bodies != null)
                     {
-                        if (bodies != null)
+                        if (bodies[(int)temp].TrackingId == trackingIdPlayer2 && trackingIdPlayer2 != 0)
                         {
-                            if (bodies[(int)temp].TrackingId == trackingIdPlayer2 && trackingIdPlayer2 != 0)
-                            {
-                                tempPlayer2 = temp;
-                            }
-                            else
-                            {
-                                temp = 255;
-                            }
+                            tempPlayer2 = temp;
+                        }
+                        else
+                        {
+                            temp = 255;
                         }
                     }
-                    else if (temp != tempPlayer2)
+                    else
                     {
                         temp = 255;
                     }
                 }
             }
-            //if (idPlayer == 1)
-            //{
-            //    if (temp < 255)
-            //    {
-            //        if (temp2 == -1)
-            //        {
-            //            temp2 = temp;
-            //        }
-            //        else if (temp != temp2)
-            //        {
-            //            temp = 255;
-            //        }
-            //    }
-            //}
-            //else
-            //{
-            //    if (temp < 255)
-            //    {
-            //        if (temp2 == -1)
-            //        {
-            //            temp2 = temp;
-            //        }
-            //        else if (temp == temp2)
-            //        {
-            //            temp = 255;
-            //        }
-            //    }
-            //}
             buffer[i] = temp;
         }
         bodyIndexBuffer.SetData(buffer);

@@ -13,6 +13,9 @@ public class ChangeMyPhoto : MonoBehaviour
     public Button btn2;
 
     PhotoPlayerController photoPlayerController;
+
+    bool isGreen1 = false;
+    bool isGreen2 = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -43,9 +46,17 @@ public class ChangeMyPhoto : MonoBehaviour
         {
             ChangeOnePlayer();
         }
+        else
+        {
+            isGreen1 = false;
+        }
         if (CursorRigth.transform.position.x > btn2.transform.position.x - 80 && CursorRigth.transform.position.x < btn2.transform.position.x + 80 && CursorRigth.transform.position.y > btn2.transform.position.y - 80 && CursorRigth.transform.position.y < btn2.transform.position.y + 80)
         {
             ChangeTwoPlayer();
+        }
+        else
+        {
+            isGreen2 = false;
         }
     }
 
@@ -53,18 +64,30 @@ public class ChangeMyPhoto : MonoBehaviour
     {
         if (CursorRigth.HandGreen == true)
         {
-            photoPlayerController.ButtonOnePlayer();
-            SceneManager.LoadScene("MyPhoto");
-            //contPlayers.Players = 1;
+            isGreen1 = true;
+        }
+        else
+        {
+            if (isGreen1)
+            {
+                photoPlayerController.ButtonOnePlayer();
+                SceneManager.LoadScene("MyPhoto");
+            }
         }
     }
     public void ChangeTwoPlayer()
     {
         if (CursorRigth.HandGreen == true)
         {
-            //contPlayers.Players = 2;
-            photoPlayerController.ButtonTwoPlayer();
-            SceneManager.LoadScene("MyPhoto");
+            isGreen2 = true;
+        }
+        else
+        {
+            if (isGreen2)
+            {
+                photoPlayerController.ButtonTwoPlayer();
+                SceneManager.LoadScene("MyPhoto");
+            }
         }
     }
 }

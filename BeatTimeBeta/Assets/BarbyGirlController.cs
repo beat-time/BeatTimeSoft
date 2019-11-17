@@ -25,7 +25,7 @@ public class BarbyGirlController : MonoBehaviour
                 audio.gameObject.SetActive(true);
                 audio.Play();
                 finish = true;
-                animator.speed = 0.97f;
+                animator.speed = 0.99f;
             }
             if (seconds < -46)
             {
@@ -39,7 +39,7 @@ public class BarbyGirlController : MonoBehaviour
 
             if (seconds < -145)
             {
-                animator.speed = 0.43f;
+                animator.speed = 0.44f;
             }
         }
         seconds -= Time.deltaTime;

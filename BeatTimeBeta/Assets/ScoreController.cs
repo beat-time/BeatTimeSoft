@@ -26,7 +26,9 @@ public class ScoreController : MonoBehaviour
 
     Image photoWinner;
     int totalPointsWinner = 0;
+    int totalPointsWinner2 = 0;
 
+    int Scene = 1;
     int placePlayer = 0;
     PhotoPlayerController photoPlayerController = new PhotoPlayerController();
     // Start is called before the first frame update
@@ -40,6 +42,7 @@ public class ScoreController : MonoBehaviour
     void Start()
     {
         CompareMovements compareMovements = new CompareMovements();
+        Scene = compareMovements.getScene();
         if (photoPlayerController.getTurnPlayerOne())
         {
             Winner1.transform.localPosition = new Vector3(0, Winner1.transform.localPosition.y, Winner1.transform.localPosition.z);
@@ -48,6 +51,7 @@ public class ScoreController : MonoBehaviour
             totalPoints1 = compareMovements.GetTotalPoints();
             photoWinner = photo1;
             totalPointsWinner = totalPoints1;
+            totalPointsWinner2 = totalPoints2;
         }
         else
         {
@@ -64,6 +68,7 @@ public class ScoreController : MonoBehaviour
                 txt_score2.text = totalPoints2.ToString();
                 photoWinner = photo1;
                 totalPointsWinner = totalPoints1;
+                totalPointsWinner2 = totalPoints2;
             }
             else
             {
@@ -71,8 +76,9 @@ public class ScoreController : MonoBehaviour
                 photo2.sprite = LoadPhoto("face1.png");
                 txt_score1.text = totalPoints2.ToString();
                 txt_score2.text = totalPoints1.ToString();
-                photoWinner = photo2;
+                photoWinner = photo1;
                 totalPointsWinner = totalPoints2;
+                totalPointsWinner2 = totalPoints1;
             }
         }
         SaveRanking();
@@ -86,11 +92,18 @@ public class ScoreController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        txt_score1.text = totalPointsWinner.ToString();
+        txt_score2.text = totalPointsWinner2.ToString();
         totalTime -= Time.deltaTime;
         if (totalTime < 0)
         {
             Initiate.Fade("Ranking", Color.black, 2.0f);
         }
+    }
+
+    public int getScene()
+    {
+        return Scene;
     }
 
     Sprite LoadPhoto(string name)
