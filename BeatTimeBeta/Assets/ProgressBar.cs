@@ -7,6 +7,7 @@ public class ProgressBar : MonoBehaviour
 {
     public RectTransform rectTransform;
     public GameObject barra;
+    public RawImage duplicate;
     private float width;
     private float height;
     public float progress;
@@ -14,6 +15,11 @@ public class ProgressBar : MonoBehaviour
     float timeSeconds = 5;
     float maxTime = 0;
     public bool move = true;
+
+    private void Awake()
+    {
+        duplicate.gameObject.SetActive(false);
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -23,22 +29,27 @@ public class ProgressBar : MonoBehaviour
         height = barra.GetComponent<RawImage>().rectTransform.rect.height;
         rectTransform.sizeDelta = new Vector2(0, height);
         maxTime = timeSeconds;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
         if (rectTransform.rect.width >= width && timeSeconds >= maxTime)
-        {         
+        {
+            
             progress = 0;
             InvokeRepeating("FlashBar", 0.1f, 1f);
             //blink(barra, 0.1f, 5);
             move = false;
+            duplicate.gameObject.SetActive(true);
         }
         else if(move)
         {
+      
             float updateBar = Mathf.MoveTowards(rectTransform.rect.width, progress, 5f);
             rectTransform.sizeDelta = new Vector2(Mathf.Clamp(updateBar, 0.0f, width), height);
+            duplicate.gameObject.SetActive(false);
         }
 
         if (!move)
@@ -46,11 +57,13 @@ public class ProgressBar : MonoBehaviour
             timeSeconds -= Time.deltaTime;
             if (timeSeconds < 1)
             {
+  
                 CancelInvoke("FlashBar");
                 timeSeconds = maxTime;
                 rectTransform.sizeDelta = new Vector2(0, height);
                 move = true;
                 progress = 0;
+                duplicate.gameObject.SetActive(false);
             }
         }
     }
@@ -61,11 +74,13 @@ public class ProgressBar : MonoBehaviour
         {
             gameObject.SetActive(false);
             barra.gameObject.SetActive(false);
+            duplicate.gameObject.SetActive(false);
         }
         else
         {
             gameObject.SetActive(true);
             barra.gameObject.SetActive(true);
+            duplicate.gameObject.SetActive(true);
         }
     }
 

@@ -59,7 +59,7 @@ public class SelectSongChance : MonoBehaviour
                     else
                     {
                         photoPlayerController.ChangeTurn();
-                        SceneManager.LoadScene("MyPhoto");
+                        SceneManager.LoadScene("MyPhotoPlayer2");
                     }
                 }
             }
@@ -76,7 +76,21 @@ public class SelectSongChance : MonoBehaviour
         {
             if (isGreen2)
             {
-                SceneManager.LoadScene("MyPhoto");
+                if (photoPlayerController.getNPlayer1())
+                {
+                    SceneManager.LoadScene("MyPhoto");
+                }
+                else {
+                    if (photoPlayerController.getTurnPlayerOne())
+                    {
+                        SceneManager.LoadScene("MyPhotoPlayer1");
+                    }
+                    else
+                    {
+                        SceneManager.LoadScene("MyPhotoPlayer2");
+                    }
+                }
+                
             }
         }
     }

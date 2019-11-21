@@ -86,7 +86,7 @@ public class ChangeMyPhoto : MonoBehaviour
             if (isGreen2)
             {
                 photoPlayerController.ButtonTwoPlayer();
-                SceneManager.LoadScene("MyPhoto");
+                SceneManager.LoadScene("MyPhotoPlayer1");
             }
         }
     }

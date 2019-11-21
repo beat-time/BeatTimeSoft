@@ -2508,7 +2508,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -3, y: 0}
+  m_AnchoredPosition: {x: -3, y: -9.799999}
   m_SizeDelta: {x: 0.000061035156, y: -0.83795166}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1310107963
@@ -3262,8 +3262,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 27, y: 180}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 15.4, y: 166.6}
+  m_SizeDelta: {x: 150, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1823969292
 MonoBehaviour:
@@ -3323,10 +3323,10 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 21300000, guid: 7b03012b6e2144f429c500cb52913c40,
+    m_HighlightedSprite: {fileID: 21300000, guid: e9dc12362c6afcd45b803ee0bf5833a6,
       type: 3}
-    m_PressedSprite: {fileID: 21300000, guid: 7b03012b6e2144f429c500cb52913c40, type: 3}
-    m_SelectedSprite: {fileID: 21300000, guid: 7b03012b6e2144f429c500cb52913c40, type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: e9dc12362c6afcd45b803ee0bf5833a6, type: 3}
+    m_SelectedSprite: {fileID: 21300000, guid: e9dc12362c6afcd45b803ee0bf5833a6, type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -3372,7 +3372,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, Unity.ugui,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 45bad8ee5ced8b5469dcb02a1be08ed3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d0b61908237573544bdf839955024925, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3706,7 +3706,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -9.799999}
   m_SizeDelta: {x: 0.000061035156, y: -0.83795166}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2018278129

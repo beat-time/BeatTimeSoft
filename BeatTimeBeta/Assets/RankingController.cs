@@ -13,6 +13,8 @@ public class RankingController : MonoBehaviour
     public RawImage r5;
 
     public RawImage arrowPlayer;
+
+    bool isTop = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +25,8 @@ public class RankingController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
+         
         
     }
 
@@ -89,6 +93,7 @@ public class RankingController : MonoBehaviour
 
     void LoadArrowPlayer(int playerPosicion)
     {
+        //playerPosicion = 3;
         if (playerPosicion == 0)
         {
             arrowPlayer.gameObject.SetActive(false);
@@ -119,7 +124,9 @@ public class RankingController : MonoBehaviour
         arrowPlayer.gameObject.SetActive(true);
         arrowPlayer.transform.SetParent(rawImage.transform);
         arrowPlayer.rectTransform.localPosition = new Vector3(-235, 0, 0);
+        
     }
+   
     Texture2D LoadPhoto(string name)
     {
         Texture2D spriteTexture = null;
