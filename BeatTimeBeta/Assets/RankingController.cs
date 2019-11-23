@@ -14,7 +14,20 @@ public class RankingController : MonoBehaviour
 
     public RawImage arrowPlayer;
 
-    bool isTop = true;
+    bool r1Active = false;
+    bool r2Active = false;
+    bool r3Active = false;
+    bool r4Active = false;
+    bool r5Active = false;
+    bool arrowActive = false;
+
+    float speed = 4f;
+    Vector3 startPosition;
+    Vector3 target;
+
+    float timeToReachTarget = 0.6f;
+    float t = 0;
+    float maxX = 560;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,12 +35,55 @@ public class RankingController : MonoBehaviour
         LoadRanking();
     }
 
+    bool DefinePositions(RawImage ri)
+    {
+        if (t == 0)
+        {
+            startPosition = new Vector3(ri.transform.localPosition.x + maxX, ri.transform.localPosition.y, ri.transform.localPosition.z);
+            target = ri.transform.localPosition;
+            ri.gameObject.SetActive(true);
+        }
+        t += Time.deltaTime / timeToReachTarget;
+        ri.transform.localPosition = Vector3.Lerp(startPosition, target, t);
+        if (t >= 1)
+        {
+            t = 0;
+            return false;
+        }
+        return true;
+    }
     // Update is called once per frame
     void Update()
     {
-        
-         
-        
+        if (r5Active)
+        {
+            r5Active = DefinePositions(r5);
+        }
+        else if (r4Active)
+        {
+            r4Active = DefinePositions(r4);
+        }
+        else if (r3Active)
+        {
+            r3Active = DefinePositions(r3);
+        }
+        else if (r2Active)
+        {
+            r2Active = DefinePositions(r2);
+        }
+        else if (r1Active)
+        {
+            r1Active = DefinePositions(r1);
+        }
+        else if (arrowActive)
+        {
+            t += Time.deltaTime;
+            if (t >= 0.3)
+            {
+                arrowPlayer.gameObject.SetActive(true);
+                arrowActive = false;
+            }
+        }
     }
 
     void LoadRanking()
@@ -41,41 +97,41 @@ public class RankingController : MonoBehaviour
 
             if (numberOfPlayers > 0)
             {
-                for(int a = 1; a <= numberOfPlayers; a++)
+                for (int a = 1; a <= numberOfPlayers; a++)
                 {
                     int score = int.Parse(data[a]);
                     if (a == 1)
                     {
-                        r1.gameObject.SetActive(true);
+                        r1Active = true;
                         r1.GetComponentsInChildren<RawImage>()[2].texture = LoadPhoto("r1.png");
                         r1.GetComponentInChildren<Text>().text = score.ToString() + " PTS.";
                     }
                     else if (a == 2)
                     {
-                        r2.gameObject.SetActive(true);
+                        r2Active = true;
                         r2.GetComponentsInChildren<RawImage>()[2].texture = LoadPhoto("r2.png");
                         r2.GetComponentInChildren<Text>().text = score.ToString() + " PTS.";
                     }
                     else if (a == 3)
                     {
-                        r3.gameObject.SetActive(true);
+                        r3Active = true;
                         r3.GetComponentsInChildren<RawImage>()[2].texture = LoadPhoto("r3.png");
                         r3.GetComponentInChildren<Text>().text = score.ToString() + " PTS.";
                     }
                     else if (a == 4)
                     {
-                        r4.gameObject.SetActive(true);
+                        r4Active = true;
                         r4.GetComponentsInChildren<RawImage>()[2].texture = LoadPhoto("r4.png");
                         r4.GetComponentInChildren<Text>().text = score.ToString() + " PTS.";
                     }
                     else
                     {
-                        r5.gameObject.SetActive(true);
+                        r5Active = true;
                         r5.GetComponentsInChildren<RawImage>()[2].texture = LoadPhoto("r5.png");
                         r5.GetComponentInChildren<Text>().text = score.ToString() + " PTS.";
                     }
                 }
-                LoadArrowPlayer(int.Parse(data[numberOfPlayers+1]));
+                LoadArrowPlayer(int.Parse(data[numberOfPlayers + 1]));
             }
         }
     }
@@ -93,12 +149,8 @@ public class RankingController : MonoBehaviour
 
     void LoadArrowPlayer(int playerPosicion)
     {
-        //playerPosicion = 3;
-        if (playerPosicion == 0)
-        {
-            arrowPlayer.gameObject.SetActive(false);
-        }
-        else if(playerPosicion == 1)
+        playerPosicion = 3;
+        if (playerPosicion == 1)
         {
             SetArrowPlayer(r1);
         }
@@ -121,12 +173,10 @@ public class RankingController : MonoBehaviour
     }
     void SetArrowPlayer(RawImage rawImage)
     {
-        arrowPlayer.gameObject.SetActive(true);
+        arrowActive = true;
         arrowPlayer.transform.SetParent(rawImage.transform);
-        arrowPlayer.rectTransform.localPosition = new Vector3(-235, 0, 0);
-        
+        arrowPlayer.rectTransform.localPosition = new Vector3(-245, 0, 0);
     }
-   
     Texture2D LoadPhoto(string name)
     {
         Texture2D spriteTexture = null;

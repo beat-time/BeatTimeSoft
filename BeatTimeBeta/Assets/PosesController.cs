@@ -26,10 +26,10 @@ public class PosesController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        /*LoadDataPoses();
+        LoadDataPoses();
         totalPoses = posesData.Count - 1;
         startPosition = Vector3.zero;
-        target = new Vector3(startPosition.x - (camino.rectTransform.rect.width - poseTemplate.rectTransform.rect.width) / 2, 0, 0);*/
+        target = new Vector3(startPosition.x - (camino.rectTransform.rect.width - poseTemplate.rectTransform.rect.width) / 2, 0, 0);
     }
 
     void CreateRawImagePose(int numberOfPose, int index)
@@ -65,7 +65,7 @@ public class PosesController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*if (contador <= totalPoses)
+        if (contador <= totalPoses)
         {
             if (nextPose)
             {
@@ -83,7 +83,7 @@ public class PosesController : MonoBehaviour
                 contador++;
             }
         }
-        MovePoses();*/
+        MovePoses();
     }
 
     Texture2D LoadImagePose(string number)
