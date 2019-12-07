@@ -87,6 +87,14 @@ public class ConvertTexture : MonoBehaviour
     public void SaveNoImage(bool isTurnPlayerOne)
     {
         byte[] file = File.ReadAllBytes(Application.dataPath + "//Resources//Images//noImage.png");
+        //video_player_center.clip = Resources.Load<VideoClip>("VideoMusica\\1");
+        //Image textura = Resources.Load<Image>("Images\\noImage.png");
+
+        //byte[] file = textura
+
+        //Texture2D t = Resources.Load<Texture2D>("VideoMusica\\1");
+
+
         Texture2D t = new Texture2D(2, 2);
         t.LoadImage(file);
         SaveFace(t, 0, 0, t.width, t.height, isTurnPlayerOne);

@@ -8,6 +8,7 @@ public class ChangeScene : MonoBehaviour
     public KinectUICursor CursorLeft;
     public KinectUICursor CursorRigth;
 
+
     // Start is called before the first frame update
     void Start()
     {

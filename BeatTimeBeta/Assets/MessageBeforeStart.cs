@@ -19,6 +19,7 @@ public class MessageBeforeStart : MonoBehaviour
     //public Text txtContador;
     //public Canvas canvasFranky;
     public AudioSource audio_mix;
+    public AudioSource audioConteo;
     // Start is called before the first frame update
     void Start()
     {
@@ -53,16 +54,28 @@ public class MessageBeforeStart : MonoBehaviour
         }
         else
         {
+            
             if (time > 2 && time <3)
             {
+                
                 Contador.texture = tres.texture;
+                if (!audioConteo.isPlaying)
+                {
+                    audioConteo.Play();
+                }
             }
             else if (time < 1 && time >0)
             {
+                //audioConteo.Stop();
                 Contador.texture = uno.texture;
+                //audioConteo.Play();
+
             }
             else {
+                //audioConteo.Stop();
                 Contador.texture = dos.texture;
+                audioConteo.Play();
+
             }
             //txtContador.text = Math.Ceiling(time).ToString("f0");
         }

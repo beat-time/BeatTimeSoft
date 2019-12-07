@@ -13,6 +13,7 @@ public class ChangeVideo : MonoBehaviour
     public Button BtnNext;
     public Button BtnBefore;
     public int contador = 1;
+    public AudioSource AudioStart;
     int maxContador = 5;
 
     public RawImage imageL;
@@ -90,6 +91,7 @@ public class ChangeVideo : MonoBehaviour
     bool isGreen31 = false;
     bool isGreen32 = false;
     // Start is called before the first frame update
+   
     void Start()
     {
 
@@ -348,6 +350,7 @@ public class ChangeVideo : MonoBehaviour
             {
                 if (isGreen31)
                 {
+                    AudioStart.Play();
                     if (NPlayer == 1)
                     {
                         if (contador == 1)
@@ -647,30 +650,31 @@ public class ChangeVideo : MonoBehaviour
         int left = (numberImageCenter == 1) ? maxContador : (numberImageCenter - 1); ;
         if (NPlayer == 1)
         {
-            imageR.texture = LoadRawImage(right + ".png");
-            imageL.texture = LoadRawImage(left + ".png");
-            imageLetra.texture = LoadRawImage("letra" + numberImageCenter + ".png");
+            imageR.texture = LoadRawImage(right.ToString());
+            imageL.texture = LoadRawImage(left.ToString());
+            imageLetra.texture = LoadRawImage("letra" + numberImageCenter);
         }
         else
         {
-            imageR.texture = LoadRawImage((right + maxContador) + ".png");
-            imageL.texture = LoadRawImage((left + maxContador) + ".png");
-            imageLetra.texture = LoadRawImage("letra" + (numberImageCenter + maxContador) + ".png");
+            imageR.texture = LoadRawImage((right + maxContador).ToString() );
+            imageL.texture = LoadRawImage((left + maxContador).ToString() );
+            imageLetra.texture = LoadRawImage("letra" + (numberImageCenter + maxContador));
         }
     }
 
     Texture2D LoadRawImage(string number)
     {
-        Texture2D spriteTexture = null;
-        string path = Application.dataPath + "//Resources//VideoMusica//";
+        /*Texture2D spriteTexture = null;
+        string path = Application.dataPath + "\\Resources\\VideoMusica\\";
         if (File.Exists(path + number))
         {
             spriteTexture = LoadTexture(path + number);
         }
         else
         {
-            spriteTexture = LoadTexture(Application.dataPath + "//Resources//Images//noImage.png");
-        }
+            spriteTexture = LoadTexture(Application.dataPath + "\\Resources\\Images\\noImage.png");
+        }*/
+        Texture2D spriteTexture = Resources.Load<Texture2D>("VideoMusica\\" + number);
         return spriteTexture;
         //Sprite newSprite = Sprite.Create(spriteTexture, new Rect(0, 0, spriteTexture.width, spriteTexture.height), Vector2.zero);
     }
